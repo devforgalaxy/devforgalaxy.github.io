@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="使用 Atom 與 Xdebug 替容器化 PHP 應用除錯" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - 使用 Atom 與 Xdebug 替容器化 PHP 應用除錯</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">使用 Atom 與 Xdebug 替容器化 PHP 應用除錯</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Sep 22, 2016
+    <i class="fa fa-tag ml15 mr7"></i>PHP
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2016/09/22/debug-containerised-php-app-using-xdebug-with-atom-en.html">Read in English</a>
+</p>
+<p>隨著越來越多開發者使用 Docker 在不同的環境下進行開發與部署，Debug 的環境、方式也變得較為複雜。因此，本篇將介紹如何使用 Atom、php-debug 與 Xdebug 替容器化 PHP 應用除錯。</p>
+
+<p><br /></p>
+
+<h3 id="docker--xdebug">在 Docker 容器中安裝與設定 Xdebug</h3>
+<p>在安裝與設定 Xdebug 前，記得先把 Xdebug 需要使用的 Port 打開，範例如下：</p>
+<pre><code class="bash"># 假設 Xdebug 需要 port 9000，則加入 -p 9000:9000
+docker run -d \
+           -p 80:80 \
+           -p 9000:9000 \
+           ...
+</code></pre>
+<p>接著在容器中安裝 Xdebug，指令如下：</p>
+<pre><code class="bash"># 進入 Docker 容器
+docker exec -it &lt;your-container-name&gt; bash
+
+# 透過 Pecl 安裝 Xdebug
+pecl install xdebug
+</code></pre>
+<p>接著在 <span class="a-hl-green">php.ini</span> (如：/usr/local/etc/php/php.ini) 檔案最後加入 Xdebug 設定，範例如下：</p>
+<pre><code class="ini"># 省略部分內容 ...
+
+zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so
+xdebug.remote_enable=1
+# 將你的容器 IP 加至 remote_host，例如：
+xdebug.remote_host=192.168.99.100
+xdebug.remote_connect_back=1
+xdebug.remote_port=9000
+xdebug.remote_handler=dbgp
+xdebug.remote_mode=req
+xdebug.remote_autostart=true
+</code></pre>
+<p>為了確保 Xdebug 能正常運作，別忘了重啟該容器。重啟容器指令：</p>
+<pre><code class="bash">docker restart &lt;your-container-name&gt;</code></pre>
+<p><br /></p>
+
+<h3 id="atom">設定 Atom</h3>
+<p>為了要在 Atom 中 Debug，我們需要安裝 php-debug 套件。透過 <span class="a-hl-blue">apm</span> 安裝套件：</p>
+<pre><code class="bash"># 安裝 php-debug
+apm install php-debug
+
+# 啟用 php-debug
+apm enable php-debug
+</code></pre>
+<p>或者，你也可以透過 <span class="a-hl-blue">Settings</span> 進行安裝。安裝後，接著打開 Atom 的設定檔 (<span class="a-hl-green">config.cson</span>)，把 php-debug 設定加至其中。範例如下：</p>
+<pre><code class="bash">"*":
+  "php-debug":
+    PathMaps: [
+      "/path/to/app/in/docker;/path/to/app/in/local"
+    ]
+    ServerPort: 9000
+  welcome:
+    showOnStartup: false
+</code></pre>
+<p><br /></p>
+
+<h3 id="atom--php-debug">在 Atom 中使用 php-debug</h3>
+<p>如何除錯？首先開啟檔案，在你想要加入中斷點的地方，使用快捷鍵 <span class="a-hl-red">fn + alt + F9</span> 插入中斷點，設定好後按下 <span class="a-hl-red">ctrl + alt + D</span> 開啟 php-debug 視窗，你可以看到顯示 “Listen on port 9000 …“。代表它已經準備好，這時你只需要將頁面重新載入或重新執行程式，就可以看到 php-debug 視窗顯示參數與其他相關資訊。
+<br /><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 !</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

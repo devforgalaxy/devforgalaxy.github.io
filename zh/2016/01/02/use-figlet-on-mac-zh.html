@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="在 Mac OS X 上安裝與使用 FIGlet" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - 在 Mac OS X 上安裝與使用 FIGlet</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">在 Mac OS X 上安裝與使用 FIGlet</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Jan 2, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Mac
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2016/01/02/use-figlet-on-mac-en.html">Read in English</a>
+</p>
+<p>FIGlet 是一個很有趣的軟體，它可以讓你利用 ASCII 字元建立好看的 Text Banner ( 若想進一步了解，請搜尋 ASCII Art )。當然 FIGlet 在其他 UNIX-like 系統上也可以安裝、使用，但本文章主要記錄如何在 Mac OS X 上安裝、使用 FIGlet。</p>
+
+<p><br /></p>
+
+<h3 id="figlet">安裝 FIGlet</h3>
+<p>基本上，透過 UNIX-like 系統的套件管理工具 ( Package Manager ) 都可以找得到 FIGlet，若在 Mac OS X 上，我們可以使用 <span class="a-hl-blue">Homebrew</span> 來安裝。指令如下：</p>
+<pre><code class="ini"># 搜尋 FIGlet
+brew search figlet
+
+# 取得 FIGlet 相關資訊
+brew info figlet
+
+# 安裝 FIGlet
+brew install figlet
+</code></pre>
+<p><br /></p>
+
+<h3 id="figlet-1">使用 FIGlet</h3>
+<p>使用 FIGlet 方式很簡單，以下列出幾個常用的指令：</p>
+<pre><code class="ini"># 輸出訊息 ( 如：Devforgalaxy )
+figlet Devforgalaxy
+
+ ____              __                       _
+|  _ \  _____   __/ _| ___  _ __ __ _  __ _| | __ ___  ___   _
+| | | |/ _ \ \ / / |_ / _ \| '__/ _` |/ _` | |/ _` \ \/ / | | |
+| |_| |  __/\ V /|  _| (_) | | | (_| | (_| | | (_| |&gt;  &lt;| |_| |
+|____/ \___| \_/ |_|  \___/|_|  \__, |\__,_|_|\__,_/_/\_\\__, |
+                                |___/                    |___/
+
+# 輸出訊息並置中
+figlet -c Devforgalaxy
+
+# 輸出字元保有間距
+figlet -k Devforgalaxy
+
+# 輸出斜體訊息
+figlet -f slant Devforgalaxy
+
+    ____            ____                       __
+   / __ \___ _   __/ __/___  _________ _____ _/ /___ __  ____  __
+  / / / / _ \ | / / /_/ __ \/ ___/ __ `/ __ `/ / __ `/ |/_/ / / /
+ / /_/ /  __/ |/ / __/ /_/ / /  / /_/ / /_/ / / /_/ /&gt;  &lt;/ /_/ /
+/_____/\___/|___/_/  \____/_/   \__, /\__,_/_/\__,_/_/|_|\__, /
+                               /____/                   /____/
+
+# 輸出 Shadow 字體訊息
+figlet -f shadow Devforgalaxy
+
+ __ \               _|                       |
+ |   |  _ \\ \   / |    _ \   __| _` |  _` | |  _` |\ \  / |   |
+ |   |  __/ \ \ /  __| (   | |   (   | (   | | (   | `  &lt;  |   |
+____/ \___|  \_/  _|  \___/ _|  \__, |\__,_|_|\__,_| _/\_\\__, |
+                                |___/                     ____/
+
+</code></pre>
+<p>更多的字體可以參考<a class="a-hl-blue" href="http://www.figlet.org/examples.html" target="_blank">這裡</a>，字體檔名為 <span class="a-hl-red">*.flf</span>，其存放路徑是 Homebrew 安裝的預設目錄 ( 如：<span class="a-hl-green">/usr/local/Cellar/figlet/2.x.x/share/figlet/fonts</span> )。
+<br /><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 !</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

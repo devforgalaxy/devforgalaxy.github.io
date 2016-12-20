@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Install Composer on Mac OS X" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Install Composer on Mac OS X</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Install Composer on Mac OS X</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>May 6, 2016
+    <i class="fa fa-tag ml15 mr7"></i>PHP
+    <a class="btn btn-info a-btn-ver pull-right"
+        href="/zh/2016/05/06/install-composer-on-mac-zh.html">閱讀中文版</a>
+</p>
+<p><span class="a-hl-blue">Composer</span> is a tool that focusing on dependency management in PHP. Thus, you can manage  your PHP projects in an easier way and spend less time on dealing with library dependency by using it. This post is about how to install and use Composer on Mac OS X.</p>
+
+<p><br /></p>
+
+<h3 id="install-composer">Install Composer</h3>
+<p>I’m going to follow the official instructions to install Composer, and there are two ways: install locally and globally. I will demonstrate how to install Composer globally. To install Composer by executing the following commands:
+<script src="https://gist.github.com/devforgalaxy/7f6606cbca192a72b2106e6f37fb0843.js"></script></p>
+<p>Then we should move Composer PHAR to <span class="a-hl-green">/usr/local/bin</span>, like this:</p>
+<pre><code class="bash">mv composer.phar /usr/local/bin/composer</code></pre>
+<p>After that, you can execute <span class="a-hl-red">composer</span> in anywhere.
+<br /><br /></p>
+
+<h3 id="use-composer">Use Composer</h3>
+<p>Here are some useful Composer commands:</p>
+<pre><code class="bash"># Get the current version
+comoposer -version
+
+# Search a package
+comoposer search &lt;package-name&gt;
+
+# Remove a package
+composer remove &lt;package-name&gt;
+</code></pre>
+<p>What’s more, one of convenient features provided by Composer is that we can use a well-defined <span class="a-hl-green">composer.json</span> to let Composer install packages automatically. Here is a composer.json example:</p>
+<pre><code class="json">{
+    ...
+    "require": {
+        "monolog/monolog": "1.0.*",
+        "parse/php-sdk" : "1.0.*"
+    }
+    ...
+}
+</code></pre>
+<p>Once you have a composer.json, you can execute the command in the place where you put the composer.json:</p>
+<pre><code class="bash"># Install packages
+composer install
+
+# Update packages
+composer update</code></pre>
+<p>After you execute the command, Composer will install monolog and parse for the project. If you want to add more packages into the projects and composer.json, you can use the command below:</p>
+<pre><code class="bash">composer require &lt;package-name&gt;</code></pre>
+<p><br /><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos. Please feel free to contact me, thank you.
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

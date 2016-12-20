@@ -1,0 +1,132 @@
+body {
+    color: #444;
+    font-family: 'Noto Sans', sans-serif;
+}
+a {
+    color: #777;
+}
+a:hover, a:focus {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+pre {
+    border: 0px;
+    padding: 0px;
+}
+code {
+    padding: 10px !important;
+}
+/** Override Bootstrap **/
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.pagination {
+    display: block;
+    width: 100%;
+    font-size: 17px;
+    margin-bottom: 0px;
+}
+/** Componenet **/
+.mt5  { margin-top: 5px; }
+.mt10 { margin-top: 10px; }
+.mt14 { margin-top: 14px; }
+.mt15 { margin-top: 15px; }
+.mt17 { margin-top: 17px; }
+.mt30 { margin-top: 30px; }
+.ml10 { margin-left: 10px; }
+.ml15 { margin-left: 15px; }
+.mr5  { margin-right: 5px; }
+.mr7  { margin-right: 7px; }
+.mr10 { margin-right: 10px; }
+.mr15 { margin-right: 15px; }
+.mb5  { margin-bottom: 5px; }
+.mb10 { margin-bottom: 10px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
+.pt10 { padding-top: 10px; }
+.pt15 { padding-top: 15px; }
+.pb10 { padding-bottom: 10px; }
+
+/** Customized CSS **/
+/** Header **/
+.h-wrapper {
+    border-bottom: 1px solid #eee;
+}
+.h-circle-blue {
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    background: #00d2ff;
+}
+.h-logo {
+    font-size: 19px;
+}
+/** Article **/
+.a-block {
+    line-height: 29px;
+}
+.a-block p {
+    font-size: 16px;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+.a-title {
+    color: #333;
+    font-size: 29px;
+}
+.a-info {
+    color: #a4a4a4;
+    font-size: 14px !important;
+}
+.a-contact {
+    color: #a4a4a4;
+    font-size: 13px !important;
+    line-height: 19px;
+    margin-bottom: 5px;
+}
+.a-readmore {
+    color: #0099cc;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #0099cc;
+    padding: 4px 6px;
+}
+.a-readmore:hover {
+    color: #5bc0dd;
+    border: 1px solid #5bc0dd;
+}
+.a-btn-ver {
+    font-size: 10px !important;
+    padding: 5px 10px;
+}
+.a-img {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.a-hl-green {
+    color: #66CCA6;
+}
+.a-hl-red {
+    color: #cc668c;
+}
+.a-hl-light-red {
+    color: #d20210;
+}
+.a-hl-blue {
+    color: #5bc0dd;
+}
+.a-hl-purple {
+    color: #a155e7;
+}
+.a-hl-yellow {
+    color: #bfcc66;
+}

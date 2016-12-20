@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="A tutorial of using Launchd to manage and execute routine tasks on Mac OS X" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Use Launchd to manage and execute routine tasks on Mac OS X</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Use Launchd to manage and execute routine tasks on Mac OS X</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Jan 5, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Mac
+    <a class="btn btn-info a-btn-ver pull-right"
+        href="/zh/2016/01/05/use-launchd-on-mac-zh.html">閱讀中文版</a>
+</p>
+<p>Launchd is designed to manage processes, applications and scripts, and it also provides the same services as cron provides. This post is about how to use Launchd to manage and execute your routine jobs on Mac OS X.</p>
+
+<p><br /></p>
+
+<h3 id="understand-launchd">Understand Launchd</h3>
+<p>Launchd manages things via many well-defined <span class="a-hl-green">Property Lists</span> ( e.g., XYZ.plist ), which include detailed information about programs or tasks. And there are different directories for users to store them. Let’s take a look about where you should put your plist files:</p>
+<pre><code class="ini">~/Library/LaunchAgents           Agents provided by the user.
+ /Library/LaunchAgents           Agents provided by the administrator.
+ /Library/LaunchDaemons          System daemons provided by the administrator.
+ /System/Library/LaunchAgents    Agents provided by Apple.
+ /System/Library/LaunchDaemons   System daemons provided by Apple.
+</code></pre>
+<p>For most users, it’s not necessary to create or modify anything in those directories whose name starts with <span class="a-hl-green">/System</span>. In most cases, we just create plist files and put them in other directories. What’s more, there is an useful tool called <span class="a-hl-blue">Launchctl</span> for us to manipulate Launchd.
+<br /><br /></p>
+
+<h3 id="create-the-task-definition">Create the task definition</h3>
+<p>For example, I want to run a shell script at 14:30 everyday. Let’s create the plist file, and make the file’s name like this: <span class="a-hl-green">com.myname.launch.some.program.plist</span>.
+<script src="https://gist.github.com/devforgalaxy/7b87522b45803846d172.js"></script></p>
+<p>Once created the plist file, I put it in <span class="a-hl-green">~/Library/LaunchAgents</span> because this task is for myself not for all users or the system.</p>
+<p><br /></p>
+
+<h3 id="use-launchctl">Use Launchctl</h3>
+<p>Now, we can load the task by using Launchctl. Here are some useful commands:</p>
+<pre><code class="ini"># Load task
+launchctl load ~/Library/LaunchAgents/com.myname.launch.some.program.plist
+
+# Remove task
+launchctl unload ~/Library/LaunchAgents/com.myname.launch.some.program.plist
+
+# Manually execute task
+launchctl start com.myname.launch.some.program
+
+# List all tasks
+launchctl list
+</code></pre>
+<p>When using the command <span class="a-hl-red">launchctl list</span>, you can notice that there is a column named “status”. If the status code is not 0, it might some errors occur. To get information about status code, you can use <span class="a-hl-red">launchctl error [code]</span>.
+<br /><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos. Please feel free to contact me, thank you.
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

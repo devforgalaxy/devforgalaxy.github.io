@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="A tutorial of installing Docker on Mac OS X" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Install Docker on Mac OS X</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Install Docker on Mac OS X</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Feb 28, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Docker
+    <a class="btn btn-info a-btn-ver pull-right"
+        href="/zh/2016/02/28/install-docker-on-mac-zh.html">閱讀中文版</a>
+</p>
+<p>Docker is a powerful and easy-to-use product that helps developers to build and deploy applications. This article is about how to install and use Docker on Mac OS X.</p>
+
+<p><br /></p>
+
+<h3 id="install-docker">Install Docker</h3>
+<p>On Mac, we can install Docker via <span class="a-hl-blue">Homebrew</span>, and I think it’s the simplest way. In fact, we’re going to install <span class="a-hl-blue">Dockertoolbox</span>, which includes many tools that we will use in the future. Of course, you can manually install each of them via Homebrew. To install Dockertoolbox:</p>
+<pre><code class="bash"># Search Dockertoolbox
+brew search dockertoolbox
+
+# Install Dockertoolbox
+brew install Caskroom/cask/dockertoolbox
+</code></pre>
+<p><br /></p>
+
+<h3 id="use-docker-machine">Use Docker Machine</h3>
+<p>Docker Machine is a tool that allows us to create an environment for Docker. If you’re using Mac or Windows, you have to use Docker Machine. To create an environment for Docker:</p>
+<pre><code class="bash"># Create a env named myDocker with virtualbox driver
+docker-machine create -d virtualbox myDocker
+</code></pre>
+<p>After created the env, let’s get the information about myDocker:</p>
+<pre><code class="bash">docker-machine env myDocker</code></pre>
+<p>There’s a command in the information:</p>
+<pre><code class="bash"># Run this command to configure your shell:
+# eval (docker-machine env myDocker)
+</code></pre>
+<p>Execute <span class="a-hl-red">eval (docker-machine env myDocker)</span>, and then you use docker commands in the terminal. Here are some useful commands:</p>
+<pre><code class="bash"># List all machines
+docker-machine ls
+
+# Start a machine
+docker-machine start &lt;your-machine-name&gt;
+
+# Stop a machine
+docker-machine stop &lt;your-machine-name&gt;
+
+# Remove a machine
+docker-machine rm &lt;your-machine-name&gt;
+</code></pre>
+<p><br /></p>
+
+<h3 id="docker-useful-commands">Docker Useful Commands</h3>
+<p>Here are Docker useful commands：</p>
+<pre><code class="bash"># Get system-wide information
+docker info
+
+# List all images
+docker images
+
+# Remove a image
+docker rmi &lt;IMAGE-ID&gt;
+
+# Run a CentOS6 container, and it will automatically download if you don't have such image
+docker run centos:centos6
+
+# Run a CentOS5 container
+docker run centos:centos5
+
+# Manually get the latest CentOS image
+docker pull centos:latest
+
+# List containers
+# 1) Option: -a  list all containers (stopped and running)
+# 2) Option: -l  list the latest container
+docker ps
+</code></pre>
+<p><br /><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos. Please feel free to contact me, thank you.
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

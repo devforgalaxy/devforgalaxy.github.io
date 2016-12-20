@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="A tutorial of installing and running PyPy on Amazon Linux" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Install and run PyPy on Amazon Linux</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Install and run PyPy on Amazon Linux</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Jan 18, 2016
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right"
+        href="/zh/2016/01/18/install-pypy-on-amazon-linux-zh.html">閱讀中文版</a>
+</p>
+<p>In many cases, we can use PyPy to improve the performance of Python programs in an easy way. Of course, we can run PyPy on Amazon Linux (AWS EC2). This post is about two ways to install and run PyPy on Amazon Linux.</p>
+
+<p><br /></p>
+
+<h3 id="install-pypy-via-yum">Install PyPy via yum</h3>
+<p>This is the simplest way to install PyPy on Amazon Linux because Amazon already provides <span class="a-hl-blue">PyPy 2.4</span> ( the newest one is PyPy 4.0.1 ) for us. Thus, we can use yum to install it. To install:</p>
+<pre><code class="bash">sudo yum --enablerepo=amzn-preview install pypy</code></pre>
+<p><br /></p>
+
+<h3 id="install-portable-pypy">Install Portable PyPy</h3>
+<p>The other way is to install <span class="a-hl-blue">Portable PyPy</span>. All we have to do is download and unzip it. To install:</p>
+<pre><code class="bash"># Download Portable PyPy
+wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-4.0.1-linux_x86_64-portable.tar.bz2
+
+# Unzip
+tar -xvf pypy-4.0.1-linux_x86_64-portable.tar.bz2
+</code></pre>
+<p><br /></p>
+
+<h3 id="run-pypy">Run PyPy</h3>
+<p>If you installed PyPy via yum, you can execute <span class="a-hl-red">pypy</span> right away. And if you want to run Portable PyPy, the executable PyPy is located in the directory: <span class="a-hl-green">pypy-4.0.1-linux_x86_64-portable/bin</span>. Take a look about the file structure:</p>
+<pre><code class="ini">pypy-4.0.1-linux_x86_64-portable
+├── bin
+│   ├── libpypy-c.so
+│   ├── pypy
+│   └── virtualenv-pypy
+</code></pre>
+<p>To execute Portable PyPy:</p>
+<pre><code class="bash">pypy-4.0.1-linux_x86_64-portable/bin/pypy</code></pre>
+<p>And it’s apparently not convenient for us to run it. So, we can create a symbolic link and put it into <span class="a-hl-green">/usr/local/bin</span>. To create a symbolic link:</p>
+<pre><code class="ini"># Create symbolic link
+sudo ln -s /path/to/pypy-4.0.1-linux_x86_64-portable/bin/pypy /usr/local/bin
+</code></pre>
+<p>Remember don’t move or copy the executable PyPy outside of the directory.
+<br /><br /></p>
+
+<h3 id="install-pip-for-pypy">Install pip for PyPy</h3>
+<p>First, we have to get <span class="a-hl-green">get-pip.py</span>, and then execute it to install pip. To install pip:</p>
+<pre><code class="bash"># Get get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py
+
+# Install pip
+pypy get-pip.py
+</code></pre>
+<p>To install modules:</p>
+<pre><code class="bash">pypy -m pip install module-name</code></pre>
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos. Please feel free to contact me, thank you.
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

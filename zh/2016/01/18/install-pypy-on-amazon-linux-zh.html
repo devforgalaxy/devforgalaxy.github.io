@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="安裝及執行 PyPy 於 Amazon Linux 上" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - 安裝及執行 PyPy 於 Amazon Linux 上</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">安裝及執行 PyPy 於 Amazon Linux 上</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Jan 18, 2016
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2016/01/18/install-pypy-on-amazon-linux-en.html">Read in English</a>
+</p>
+<p>相信很多人都會採用 PyPy 來提升 Python 程式整體效能，而在 Amazon Linux (AWS EC2) 上當然也可以使用 PyPy，本篇文章將介紹兩個方式來安裝 PyPy 於 Amazon Linux 環境下。</p>
+
+<p><br /></p>
+
+<h3 id="yum--pypy">透過 yum 安裝 PyPy</h3>
+<p>這個方法比較簡單，因為 Amazon 已預設提供 <span class="a-hl-blue">PyPy 2.4</span> ( 最新的版本為 PyPy 4.0.1 )，所以我們透過 yum 來安裝就可以了，指令如下：</p>
+<pre><code class="bash">sudo yum --enablerepo=amzn-preview install pypy</code></pre>
+<p><br /></p>
+
+<h3 id="portable-pypy">安裝 Portable PyPy</h3>
+<p>另一個方法則是使用 PyPy 官方提供的 <span class="a-hl-blue">Portable PyPy</span> 版本，安裝方式也很簡單，將 Portable PyPy 下載後解壓縮即可開始使用，安裝方法如下：</p>
+<pre><code class="bash"># 下載 Portable PyPy
+wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-4.0.1-linux_x86_64-portable.tar.bz2
+
+# 解壓縮
+tar -xvf pypy-4.0.1-linux_x86_64-portable.tar.bz2
+</code></pre>
+<p><br /></p>
+
+<h3 id="pypy">執行 PyPy</h3>
+<p>若你是使用 yum 來安裝 PyPy，那已經可以直接使用 <span class="a-hl-red">pypy</span> 指令。而 Portable PyPy 的執行檔就在解壓縮完的資料夾 <span class="a-hl-green">pypy-4.0.1-linux_x86_64-portable/bin</span> 底下，參考以下：</p>
+<pre><code class="ini"># PyPy 檔案結構
+pypy-4.0.1-linux_x86_64-portable
+├── bin
+│   ├── libpypy-c.so
+│   ├── pypy
+│   └── virtualenv-pypy
+</code></pre>
+<p>執行 PyPy 方式如下：</p>
+<pre><code class="bash">pypy-4.0.1-linux_x86_64-portable/bin/pypy</code></pre>
+<p>這樣的執行方式當然不夠方便，所以我們可以在 <span class="a-hl-green">/usr/local/bin</span> 加入 PyPy 的 Symbolic Link。指令如下：</p>
+<pre><code class="ini"># 建立 Symbolic Link 於 usr/local/bin
+sudo ln -s /path/to/pypy-4.0.1-linux_x86_64-portable/bin/pypy /usr/local/bin
+</code></pre>
+<p>記得不要將 PyPy 的執行檔移動或複製到其他位置。
+<br /><br /></p>
+
+<h3 id="pypy--pip">替 PyPy 安裝 pip</h3>
+<p>安裝 pip 首先需要取得 <span class="a-hl-green">get-pip.py</span>，然後透過 pypy 執行該檔案進行安裝，指令如下：</p>
+<pre><code class="bash"># 取得 get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py
+
+# 安裝 pip
+pypy get-pip.py
+</code></pre>
+<p>最後，若要使用 pip 安裝其他 Module 方式如下：</p>
+<pre><code class="bash">pypy -m pip install module-name</code></pre>
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 !</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2016 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
