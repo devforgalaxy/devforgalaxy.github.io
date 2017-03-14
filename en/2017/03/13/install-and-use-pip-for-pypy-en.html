@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="A blog for developers" />
+<meta name="description" content="Install pip and use it with PyPy" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devforgalaxy - Articles about computer science</title>
+<title>Devforgalaxy - Install pip and use it with PyPy</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
@@ -27,62 +27,55 @@
 <!-- Content -->
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
-<div class="col-sm-8"><!-- Article list -->
-
-<div class="a-block mt10 mb30 ml15 mr15">
-<a class="a-title" href="/en/2015/12/18/install-runsnakerun-on-mac-en.html">Install RunSnakeRun on Mac OS X</a>
-<p class="a-info mt10">
-    <i class="fa fa-clock-o mr7"></i>Dec 18, 2015
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Install pip and use it with PyPy</a>
+<p class="a-info mt10 mb20">
+    <i class="fa fa-clock-o mr7"></i>Mar 13, 2017
     <i class="fa fa-tag ml15 mr7"></i>Python
-    <p>To understand the performance of Python applications, developers can use some useful tools, such as cProfie and RunSnakeRun. However, it is a little bit difficult when I tried to get RunSnakeRun working on Mac OS X. Thus, this article is going to record how I install and make RunSnakeRun work.</p>
-
-
+    <a class="btn btn-info a-btn-ver pull-right"
+        href="/zh/2017/03/13/install-and-use-pip-for-pypy-zh.html">閱讀中文版</a>
 </p>
-<p class="mt17 mb30"><a class="a-readmore" href="/en/2015/12/18/install-runsnakerun-on-mac-en.html">Read more</a></p>
-<hr/>
-</div>
+<p>Since the community and ecosystem of <span class="a-hl-blue">PyPy</span> have become better, we might have more chances to utilize it for new projects in the future. So, this post is about how to install <span class="a-hl-blue">pip</span> and use it with PyPy.</p>
 
-<div class="a-block mt10 mb30 ml15 mr15">
-<a class="a-title" href="/en/2015/12/16/use-multiple-dropbox-accounts-on-mac-en.html">Use multiple Dropbox accounts on Mac</a>
-<p class="a-info mt10">
-    <i class="fa fa-clock-o mr7"></i>Dec 16, 2015
-    <i class="fa fa-tag ml15 mr7"></i>Mac
-    <p>Dropbox allows you to use multiple accounts on one machine at the same time only if you have upgraded your account. But there is a way found from the internet can help us to reach the goal without upgrading your account.</p>
+<p><br /></p>
 
+<h3 id="prerequisite">Prerequisite</h3>
+<p>Before installing pip, make sure you have PyPy installed on your machine. I will demonstrate the following steps on <span class="a-hl-blue">Debian</span>. To install PyPy:</p>
+<pre><code class="bash"># Update Debian's package manager
+apt-get update
 
-</p>
-<p class="mt17 mb30"><a class="a-readmore" href="/en/2015/12/16/use-multiple-dropbox-accounts-on-mac-en.html">Read more</a></p>
-<hr/>
-</div>
+# Install PyPy and curl
+apt-get -y install curl pypy
+</code></pre>
+<p><br /></p>
 
+<h3 id="install-pip">Install pip</h3>
+<p>It’s very easy to install pip for PyPy by doing this:</p>
+<pre><code class="bash"># Install pip
+curl https://bootstrap.pypa.io/get-pip.py | pypy
 
-<!-- Pager -->
+# Update pip
+pypy -m pip install --upgrade pip
+</code></pre>
+<p><br /></p>
 
-<div class="pagination text-center">
+<h3 id="use-pip">Use pip</h3>
+<p>Here are commands for installing and removing modules:</p>
+<pre><code class="bash"># Install third-party module
+# Usage: pypy -m pip install [module-name]
+pypy -m pip install requests
 
-<a href="/pager/page2">&laquo; Prev</a>
+# Remove module
+# Usage: pypy -m pip uninstall [module-name]
+pypy -m pip uninstall requests
+</code></pre>
+<p><br /></p>
 
-
-
-
-<a href="/pager/page2">1</a>
-
-
-
-<a href="/pager/page2">2</a>
-
-
-
-<em>3</em>
-
-
-
-
-<span>Next &raquo;</span>
+<hr />
 
 </div>
-
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
