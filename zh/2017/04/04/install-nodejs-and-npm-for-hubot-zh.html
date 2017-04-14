@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Install Docker on Amazon Linux" />
+<meta name="description" content="建立屬於自己的 Hubot (1) - 安裝 Node.js 與 npm" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devforgalaxy - Install Docker on Amazon Linux</title>
+<title>Devforgalaxy - 建立屬於自己的 Hubot (1) - 安裝 Node.js 與 npm</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
@@ -20,7 +20,7 @@
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
 <a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
-<a class="pull-right mt14">About</a>
+<a class="pull-right mt14">關於</a>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
@@ -28,54 +28,50 @@
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
-<a class="a-title">Install Docker on Amazon Linux</a>
+<a class="a-title">建立屬於自己的 Hubot (1) - 安裝 Node.js 與 npm</a>
 <p class="a-info mt10 mb20">
-    <i class="fa fa-clock-o mr7"></i>Feb 26, 2017
-    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <i class="fa fa-clock-o mr7"></i>Apr 4, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Hubot
     <a class="btn btn-info a-btn-ver pull-right" 
-        href="/zh/2017/02/26/install-docker-on-amazon-linux-zh.html">閱讀中文版</a>
+        href="/en/2017/04/04/install-nodejs-and-npm-for-hubot-en.html">Read in English</a>
 </p>
-<p>Amazon already introduced <span class="a-hl-blue">EC2 Container Service</span>, but I guess many people might still need to install Docker on Amazon Linux manually. This post is about how to install Docker on Amazon Linux.</p>
+<p><span class="a-hl-blue">Hubot</span> 是一個由 Github 團隊所開發的自動化工具 (框架)，我們可以很輕鬆地利用它結合其他服務 (如：Google Map、Skype 與 Slack) 來提升我們的工作效率。接下來，我將會透過三篇文章來從頭介紹如何建立屬於你自己的 Hubot 並將它結合 Slack，第一篇將介紹如何設定 Hubot 所需環境。</p>
 
 <p><br /></p>
 
-<h3 id="prerequisite">Prerequisite</h3>
-<p>Before we start it, make sure you create an EC2 instance using <span class="a-hl-green">Amazon Linux AMI</span>. If it’s up and running, let’s SSH to your instance:</p>
-<pre><code class="bash"># Set the pem file as read-only
-chmod 400 /path/to/your/ec2.pem
+<h3 id="section">前置準備</h3>
+<p>接下來的步驟將都會在 <span class="a-hl-blue">Debian</span> 上示範，所以在開始安裝 Node.js 與 npm 之前，我們先更新套件管理工具與下載所需軟體 cUrl：</p>
+<pre><code class="bash"># 更新 Debian's 套件管理工具
+apt-get update
 
-# Default user is ec2-user
-ssh -i "ec2.pem" ec2-user@ip
+# 安裝 cUrl
+apt-get -y install curl
 </code></pre>
 <p><br /></p>
 
-<h3 id="install-docker">Install Docker</h3>
-<p>Let’s install Docker via <span class="a-hl-red">yum</span>:</p>
-<pre><code class="bash"># Update
-sudo yum update -y
+<h3 id="nodejs--npm">安裝 Node.js 與 npm</h3>
+<p>若你直接透過 <span class="a-hl-red">apt-get install -y nodejs</span> 安裝 Node.js，你會下載到較舊的版本。所以若要安裝較新的版本我們可以使用：</p>
+<pre><code class="bash"># 安裝 Node.js 6.X
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get -y install nodejs
 
-# Install Docker
-sudo yum install -y docker
-
-# Check Docker version
-sudo docker -v
-
-# Check Docker information
-sudo docker info
-</code></pre>
-<p>To execute Docker commands without <span class="a-hl-red">sudo</span>, you need to add the user into Docker group. Like this:</p>
-<pre><code class="bash">sudo usermod -a -G docker ec2-user</code></pre>
-<p><br /></p>
-
-<h3 id="manage-docker-daemon">Manage Docker daemon</h3>
-<p>Here are commands for managing your Docker daemon:</p>
-<pre><code class="python"># Start Docker
-sudo service docker start
-
-# Stop Docker
-sudo service docker stop
+# 安裝 Node.js 7.X
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get -y install nodejs
 </code></pre>
 <p><br /></p>
+
+<h3 id="section-1">確認安裝版本</h3>
+<p>安裝好後，確認一下我們安裝的版本，指令如下：</p>
+<pre><code class="bash"># 查看 Node.js 版本
+nodejs -v
+
+# 查看 npm 版本
+npm -v
+</code></pre>
+<p>接著<a class="a-hl-blue" target="_blank" href="/zh/2017/04/14/install-and-set-first-hubot-zh.html">下ㄧ篇文章</a>，我將繼續介紹如何安裝與設定 Hubot。
+<br />
+<br /></p>
 
 <hr />
 
@@ -90,9 +86,7 @@ sudo service docker stop
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><br/>
 <div class="a-block mt5 mb30 ml15 mr15 text-center">
-<p class="a-contact">
-If you have any suggestions, questions or even find some typos. Please feel free to contact me, thank you.
-</p>
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 !</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
 &copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.

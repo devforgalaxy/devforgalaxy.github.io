@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Install and use Tagbar on Mac" />
+<meta name="description" content="Create your own Hubot (1) - Install Node.js and npm" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devforgalaxy - Install and use Tagbar on Mac</title>
+<title>Devforgalaxy - Create your own Hubot (1) - Install Node.js and npm</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
@@ -28,64 +28,50 @@
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
-<a class="a-title">Install and use Tagbar on Mac</a>
+<a class="a-title">Create your own Hubot (1) - Install Node.js and npm</a>
 <p class="a-info mt10 mb20">
-    <i class="fa fa-clock-o mr7"></i>Aug 28, 2016
-    <i class="fa fa-tag ml15 mr7"></i>Vim
+    <i class="fa fa-clock-o mr7"></i>Apr 4, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Hubot
     <a class="btn btn-info a-btn-ver pull-right" 
-        href="/zh/2016/08/28/install-tagbar-on-mac-zh.html">閱讀中文版</a>
+        href="/zh/2017/04/04/install-nodejs-and-npm-for-hubot-zh.html">閱讀中文版</a>
 </p>
-<p><span class="a-hl-blue">Tagbar</span> is a tool that can analyse a file and provide an overview of it’s structure. So, it’s very useful for developers who use Vim as a modern IDE. This article is about how to use and install Tagbar on Mac.</p>
+<p><span class="a-hl-blue">Hubot</span> is a handy and useful automation tool (framewrok) introduced by Github. To increase productivity, you can integrate it with other services such as Google Map, Skype and Slack. I will use three posts to introduce you how to create and use your own Hubot with Slack. This first post is about how to set up the environment for running Hubot.</p>
 
 <p><br /></p>
 
 <h3 id="prerequisite">Prerequisite</h3>
-<p>To install plugins for Vim, I usually use <span class="a-hl-blue">Vundle</span>, a handy plugin manager. And I will use it in this tutorial, so you can try to use it. In addition to that, Tagbar is based on <span class="a-hl-blue">Exuberant Ctags</span>. Thus, you should install it before the following steps. To install it via Homebrew:</p>
-<pre><code class="bash"># Search Ctags
-brew search ctags
+<p>I will demonstrate the following steps on <span class="a-hl-blue">Debian</span>, so let’s update the package manager and install one necessary package.</p>
+<pre><code class="bash"># Update Debian's package manager
+apt-get update
 
-# Get info of Ctags
-brew info ctags
-
-# Install Ctags
-brew install ctags
+# Install cUrl
+apt-get -y install curl
 </code></pre>
 <p><br /></p>
 
-<h3 id="install-tagbar">Install Tagbar</h3>
-<p>Let’s continue to install Tagbar through Vundle. First, open your Vim configuration (<span class="a-hl-green">/etc/vimrc</span> or <span class="a-hl-green">~/.vimrc</span>), then add the plugin name and related settings. For example:</p>
-<pre><code class="bash">" skip some content ... "
+<h3 id="install-nodejs-and-npm">Install Node.js and npm</h3>
+<p>Normally, you would get an outdated version of Node.js and npm by simply executing <span class="a-hl-red">apt-get install -y nodejs</span>. To get newer versions, we can execute below commands:</p>
+<pre><code class="bash"># Install Node.js 6.X
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get -y install nodejs
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
-
-" Add Tagbar here "
-Plugin 'majutsushi/tagbar'
-
-call vundle#end()
-filetype plugin indent on
-
-" skip some content ... "
-
-" Drop Tagbar settings at the end of the config file "
-" Open an overview of current file by using Tagbar, hot key: F8 "
-nmap &lt;F8&gt; :TagbarToggle&lt;CR&gt;
-
+# Install Node.js 7.X
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get -y install nodejs
 </code></pre>
-<p>After modification to Vim config, let’s install Tagbar by executing the command in Vim:</p>
-<pre><code class="bash">:PluginInstall</code></pre>
-<p>Or, put the command in your terminal:</p>
-<pre><code class="bash">vim +PluginInstall +qall</code></pre>
 <p><br /></p>
 
-<h3 id="use-tagbar">Use Tagbar</h3>
-<p>Here are useful hot keys when you editing in Vim:</p>
-<pre><code class="bash">F1  # Open the help doc
-F8  # Open a new window that shows an overview of the current file
+<h3 id="check-versions-of-nodejs-and-npm">Check versions of Node.js and npm</h3>
+<p>To make sure Node.js and npm were installed correctly on your machine, you can execute the following command:</p>
+<pre><code class="bash"># Check Node.js version
+nodejs -v
+
+# Check npm version
+npm -v
 </code></pre>
-<p><br /><br /></p>
+<p>The <a class="a-hl-blue" target="_blank" href="/en/2017/04/14/install-and-set-first-hubot-en.html">next post</a> will show you how I install and set up a Hubot.
+<br />
+<br /></p>
 
 <hr />
 
