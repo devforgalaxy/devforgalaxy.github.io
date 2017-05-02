@@ -79,6 +79,10 @@ code {
     -ms-hyphens: auto;
     hyphens: auto;
 }
+.a-block li {
+    line-height: 220%;
+    font-size: 16px;
+}
 .a-title {
     color: #333;
     font-size: 29px;
