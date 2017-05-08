@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Django - 自訂 Error 404 頁面" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Django - 自訂 Error 404 頁面</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Django - 自訂 Error 404 頁面</a>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>May 6, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Djnago
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/05/06/django-customized-error-view-en.html">Read in English</a>
+</p>
+<p>在<a class="a-hl-blue" href="/zh/2017/04/29/django-configure-logging-settings-zh.html" target="_blank">上一篇</a>中講解了 Logging 的基本概念與用法後，讓我們繼續發掘 Django 其他的功能，本篇將介紹如何在 Django 中自訂 Error 404 處理方式與頁面。</p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>若你還未將環境設定好，你可以使用以下指令快速建立專案：</p>
+<pre><code class="bash"># 安裝 Django
+python -m pip install Django
+
+# 查看 Django 版本
+python -m django --version
+
+# 建立 Django 專案
+django-admin startproject &lt;project-name&gt;
+</code></pre>
+<p>專案的預設結構如下：</p>
+<pre><code class="python">project-name/
+├── project-name
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+</code></pre>
+<p><br /></p>
+
+<h3 id="view">建立 View</h3>
+<p>使用 Django 的好處就是它提供了許多預設機制，我們只需要去改寫部分細節、或者是定義自己想要的處理方式即可。以處理 Error 404 來說，Django 其實已經有一個預設的處理機制與頁面，因此我們不需要從零開始。當 Error 404 出現時，Django 會針對這個狀況指定一個 View (也就是我們程式邏輯所在部分)，所以我們可以在 <span class="a-hl-green">view.py</span> 中加入以下程式碼：</p>
+<pre><code class="python"># View for error 404
+class Error404View(View):
+    def get(self, request):
+        # Do something if you want
+        return render(request, 'path/to/error404.html')
+
+# View for error 500
+class Error500View(View):
+    def get(self, request):
+        # Do something if you want
+        return render(request, 'path/to/error500.html')
+</code></pre>
+<p>從上面的程式中，你可以看到我們指定兩個 HTML 檔案，這就是我們到時候要呈現的頁面。而通常我們的 HTML 檔案都會放在 <span class="a-hl-green">templates</span> 資料夾中，使用的方式跟一般的頁面是一樣的，頁面的內容我就不在這邊討論。
+<br />
+<br /></p>
+
+<h3 id="url-">修改 URL 設定檔</h3>
+<p>前面的步驟還沒有辦法讓 Django 知道我們新的 View 要怎麼用以及何時用，因此我們現在要透過 URL 設定檔將它們連結起來，開啟 <span class="a-hl-green">urls.py</span> 並將以下內容加入：</p>
+<pre><code class="python">from django.conf.urls import handler404, handler500
+
+# 將我們剛剛建立的 View 引入
+from your-app.views import Error404View, Error500View
+
+urlpatterns = [
+    ...
+]
+
+handler404 = Error404View.as_view()
+handler500 = Error500View.as_view()
+</code></pre>
+<p>如果你的 Django 專案底下有多個 App，你需要把這段內容加入你專案主要的 urls.py 裡面。
+<br />
+<br /></p>
+
+<h3 id="section-1">測試</h3>
+<p>若你目前已開啟 Debug 模式，剛剛設定的頁面是沒有辦法正常呈現的。你必須要到 <span class="a-hl-green">settings.py</span> 中把 Debug 模式關閉才能看到結果：</p>
+<pre><code class="python">DEBUG = False</code></pre>
+<p><br />
+<br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

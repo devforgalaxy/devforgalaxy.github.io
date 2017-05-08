@@ -38,6 +38,7 @@ code {
 .mt14 { margin-top: 14px; }
 .mt15 { margin-top: 15px; }
 .mt17 { margin-top: 17px; }
+.mt20 { margin-top: 20px; }
 .mt30 { margin-top: 30px; }
 .ml10 { margin-left: 10px; }
 .ml15 { margin-left: 15px; }
@@ -49,6 +50,7 @@ code {
 .mb10 { margin-bottom: 10px; }
 .mb20 { margin-bottom: 20px; }
 .mb30 { margin-bottom: 30px; }
+.mb35 { margin-bottom: 35px; }
 .pt10 { padding-top: 10px; }
 .pt15 { padding-top: 15px; }
 .pb10 { padding-bottom: 10px; }
