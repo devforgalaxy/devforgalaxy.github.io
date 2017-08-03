@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="編譯 Pandoc 並在 AWS Lambda 上執行" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - 編譯 Pandoc 並在 AWS Lambda 上執行</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">編譯 Pandoc 並在 AWS Lambda 上執行</a>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Aug 4, 2017
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/08/04/build-pandoc-and-run-it-on-aws-lambda-en.html">English</a>
+</p>
+<p>文件檔格式轉換幾乎是 Web 應用程式會需要的功能。要實現這個功能，我們可以利用 <span class="a-hl-blue">Pandoc</span> 與可拋棄式的運算環境，例如： <span class="a-hl-blue">AWS Lambda</span>。但是，Lambda 預設的套件並未包含 Pandoc，所以要在 Lambda 上使用的話，我們必須先自行編譯 Pandoc 執行檔。因此，本篇文章將介紹如何編譯 Pandoc 並在 AWS Lambda 上執行。</p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>為了編譯一個可以在 AWS Lambda 環境下運行的 Pandoc，我們必須準備一個極為相似的運算環境。幸運地是，我們可以利用 <span class="a-hl-blue">Docker</span> 和 <a class="a-hl-blue" target="_blank" href="https://github.com/lambci/docker-lambda">docker-lambda</a> 來模擬 Lambda 環境。取得 Docker Image：</p>
+<pre><code class="bash">docker pull lambci/lambda:build-python2.7</code></pre>
+<p><br /></p>
+
+<h3 id="pandoc">編譯 Pandoc</h3>
+<p>開始之前，先來安裝開發套件 (注意，容器預設的工作目錄為 <span class="a-hl-green">/var/task</span>)：</p>
+<pre><code class="bash"># 安裝開發套件
+yum -y install gmp-devel freeglut-devel python-devel zlib-devel gcc m4
+</code></pre>
+<p>除了那些套件之外，我們還需要 <span class="a-hl-blue">GHC</span> 與 <span class="a-hl-blue">Cabal</span>：</p>
+<pre><code class="bash"># 安裝 GHC
+GHC='https://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-centos67-linux.tar.xz'
+curl -OL $GHC &amp;&amp; tar xf ghc* &amp;&amp; cd ghc* &amp;&amp; ./configure --prefix=/usr &amp;&amp; make install &amp;&amp; cd ..
+
+# 安裝 Cabal
+CABAL='https://www.haskell.org/cabal/release/cabal-install-1.24.0.0/cabal-install-1.24.0.0-x86_64-unknown-linux.tar.gz'
+mkdir .bin &amp;&amp; cd .bin &amp;&amp; curl -OL $CABAL &amp;&amp; tar xf cabal* &amp;&amp; cd ..
+</code></pre>
+<p>現在，讓我們開始編譯：</p>
+<pre><code class="bash"># 編譯 Pandoc
+.bin/cabal sandbox init &amp;&amp; \
+.bin/cabal update &amp;&amp; \
+.bin/cabal install hsb2hs &amp;&amp; \
+.bin/cabal install --disable-documentation pandoc -fembed_data_files
+
+# 壓縮 Pandoc
+cp .cabal-sandbox/bin/pandoc .
+gzip pandoc
+</code></pre>
+<p>編譯完成後，從容器中取得壓縮過的 Pandoc：</p>
+<pre><code class="bash">docker cp [container-name]:/var/task/pandoc.gz /path/to/local/pandoc.gz</code></pre>
+<p><br /></p>
+
+<h3 id="pandoc-1">使用 Pandoc</h3>
+<p>如何在 AWS Lambda 上使用 Pandoc 呢？首先，建立一個 Lambda Function 並上傳你的程式與壓縮過的 Pandoc。接著，你必須了解 AWS Lambda 只讓我們在 <span class="a-hl-green">/tmp</span> 底下建立與下載檔案，所以我們將會解壓縮 Pandoc 到該處，並在那裡進行文件檔格式轉換。讓我們看個簡單的範例：</p>
+<pre><code class="python">import subprocess
+
+def init_cmd(cmd):
+    return subprocess.Popen(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+def execute_cmd():
+    cmd = (
+        "cp pandoc.gz /tmp/pandoc.gz &amp;&amp; "
+        "gzip -d /tmp/pandoc.gz &amp;&amp; "
+        "chmod 755 /tmp/pandoc &amp;&amp; "
+        "/tmp/pandoc -S -s /tmp/input-file -o /tmp/output-file"
+    )
+    process = init_cmd(cmd)
+    out, err = process.communicate()
+
+    # Then do anything you want
+
+</code></pre>
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

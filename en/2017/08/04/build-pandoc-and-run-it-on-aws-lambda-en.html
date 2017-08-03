@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Build Pandoc and run it on AWS Lambda" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Build Pandoc and run it on AWS Lambda</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Build Pandoc and run it on AWS Lambda</a>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Aug 4, 2017
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2017/08/04/build-pandoc-and-run-it-on-aws-lambda-zh.html">中文版</a>
+</p>
+<p>Document conversion is kind of a feature that many web-based applications need. To make it, we can utilize <span class="a-hl-blue">Pandoc</span>, a very useful conversion tool, with a disposable computing environment like <span class="a-hl-blue">AWS Lambda</span>. But, Lambda doesn’t provide such tool for users by default. So, we have to build a Pandoc binary for it. In this post, I’m going to show you how to build the binary and execute it on AWS Lambda.</p>
+
+<p><br /></p>
+
+<h3 id="prerequisite">Prerequisite</h3>
+<p>To create a Pandoc binary file for AWS Lambda, we must prepare a similar environment. Luckily, we can harness <span class="a-hl-blue">Docker</span> and <a class="a-hl-blue" target="_blank" href="https://github.com/lambci/docker-lambda">docker-lambda</a> to simulate a Lambda environment. To get the docker image:</p>
+<pre><code class="bash">docker pull lambci/lambda:build-python2.7</code></pre>
+<p><br /></p>
+
+<h3 id="build-pandoc">Build Pandoc</h3>
+<p>Before build, we have to install dev packages (FYI, the default working directory is <span class="a-hl-green">/var/task</span>):</p>
+<pre><code class="bash"># Install necessary packages
+yum -y install gmp-devel freeglut-devel python-devel zlib-devel gcc m4
+</code></pre>
+<p>Besides those packages, we also need <span class="a-hl-blue">GHC</span> and <span class="a-hl-blue">Cabal</span>:</p>
+<pre><code class="bash"># Install GHC
+GHC='https://downloads.haskell.org/~ghc/8.0.1/ghc-8.0.1-x86_64-centos67-linux.tar.xz'
+curl -OL $GHC &amp;&amp; tar xf ghc* &amp;&amp; cd ghc* &amp;&amp; ./configure --prefix=/usr &amp;&amp; make install &amp;&amp; cd ..
+
+# Install Cabal
+CABAL='https://www.haskell.org/cabal/release/cabal-install-1.24.0.0/cabal-install-1.24.0.0-x86_64-unknown-linux.tar.gz'
+mkdir .bin &amp;&amp; cd .bin &amp;&amp; curl -OL $CABAL &amp;&amp; tar xf cabal* &amp;&amp; cd ..
+</code></pre>
+<p>Now, let’s build:</p>
+<pre><code class="bash"># Build Pandoc
+.bin/cabal sandbox init &amp;&amp; \
+.bin/cabal update &amp;&amp; \
+.bin/cabal install hsb2hs &amp;&amp; \
+.bin/cabal install --disable-documentation pandoc -fembed_data_files
+
+# Wrap it up
+cp .cabal-sandbox/bin/pandoc .
+gzip pandoc
+</code></pre>
+<p>After building, get the compressed Pandoc:</p>
+<pre><code class="bash">docker cp [container-name]:/var/task/pandoc.gz /path/to/local/pandoc.gz</code></pre>
+<p><br /></p>
+
+<h3 id="use-pandoc">Use Pandoc</h3>
+<p>How to use Pandoc on AWS Lambda? First, create a Lambda function and upload your programs with the compressed binary file. Second, you have to know that the only place AWS Lambda allows us to create or download files is <span class="a-hl-green">/tmp</span>, so we will put the decompressed Pandoc binary file there, and then use it to convert files. Check this example:</p>
+<pre><code class="python">import subprocess
+
+def init_cmd(cmd):
+    return subprocess.Popen(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+def execute_cmd():
+    cmd = (
+        "cp pandoc.gz /tmp/pandoc.gz &amp;&amp; "
+        "gzip -d /tmp/pandoc.gz &amp;&amp; "
+        "chmod 755 /tmp/pandoc &amp;&amp; "
+        "/tmp/pandoc -S -s /tmp/input-file -o /tmp/output-file"
+    )
+    process = init_cmd(cmd)
+    out, err = process.communicate()
+
+    # Then do anything you want
+
+</code></pre>
+<p>That’s it, and go convert files!
+<br />
+<br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
