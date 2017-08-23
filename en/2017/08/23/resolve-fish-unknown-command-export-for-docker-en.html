@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Resolve fish: Unknown command 'export' when executing docker-machine env" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devforgalaxy - Resolve fish: Unknown command 'export' when executing docker-machine env</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Resolve fish: Unknown command 'export' when executing docker-machine env</a>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Aug 23, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Docker
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2017/08/23/resolve-fish-unknown-command-export-for-docker-zh.html">中文版</a>
+</p>
+<p>I like to use <span class="a-hl-blue">Fish</span> shell and <span class="a-hl-blue">Docker</span> while developing, and I believe there are some people also like the combination. But you might encounter some problems caused by Fish’s design. Like this one <span class="a-hl-red">fish: Unknown command ‘export’</span> when running <span class="a-hl-red">eval (docker-machine env your-machine)</span>. Thus, this post is about how to resolve it.</p>
+
+<p><br /></p>
+
+<h3 id="resolve-fish-unknown-command-export">Resolve fish: Unknown command ‘export’</h3>
+<p>To solve it, you have to learn how does Fish set shell variables. Fish is not like other shells. It uses <span class="a-hl-red">set</span> instead of <span class="a-hl-red">export</span>. For example:</p>
+<pre><code class="bash">set -x [variable-name] [variable-value]</code></pre>
+<p>And this is what you get when running <span class="a-hl-red">docker-machine env your-machine</span>:</p>
+<pre><code class="bash">export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://100.100.100.100:2376"
+export DOCKER_CERT_PATH="/path/to/your/machine"
+export DOCKER_MACHINE_NAME="your-machine"
+</code></pre>
+<p>Apparently, Fish doesn’t recognize the export command, so it throws error message. Fortunately, docker-machine provides a solution for us and that is to use <span class="a-hl-red">shell</span> option:</p>
+<pre><code class="bash">eval (docker-machine env your-machine --shell=fish)</code></pre>
+<p>Now, you should be able to set the variables.
+<br />
+<br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
