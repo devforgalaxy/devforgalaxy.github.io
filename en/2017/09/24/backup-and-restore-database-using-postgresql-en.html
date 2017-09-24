@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="A blog for developers" />
+<meta name="description" content="Backup and restore database using PostgreSQL" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devforgalaxy - Articles about computer science</title>
+<title>Devforgalaxy - Backup and restore database using PostgreSQL</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
@@ -34,66 +34,44 @@
 <!-- Content -->
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
-<div class="col-sm-8"><!-- Article list -->
-
-<div class="a-block mt10 mb30 ml15 mr15">
-<a class="a-title" href="/en/2015/12/18/install-runsnakerun-on-mac-en.html">Install RunSnakeRun on Mac OS X</a>
-<p class="a-info mt10">
-    <i class="fa fa-clock-o mr7"></i>Dec 18, 2015
-    <i class="fa fa-tag ml15 mr7"></i>Python
-    <p>To understand the performance of Python applications, developers can use some useful tools, such as cProfie and RunSnakeRun. However, it is a little bit difficult when I tried to get RunSnakeRun working on Mac OS X. Thus, this article is going to record how I install and make RunSnakeRun work.</p>
-
-
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<a class="a-title">Backup and restore database using PostgreSQL</a>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Sep 24, 2017
+    <i class="fa fa-tag ml15 mr7"></i>PostgreSQL
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2017/09/24/backup-and-restore-database-using-postgresql-zh.html">中文版</a>
 </p>
-<p class="mt20 mb35"><a class="a-readmore" href="/en/2015/12/18/install-runsnakerun-on-mac-en.html">Read more</a></p>
-<hr/>
-</div>
+<p>In the previous post, we’ve learned <a class="a-hl-blue" target="_blank" href="https://devforgalaxy.github.io/en/2017/09/19/create-database-and-user-using-postgresql-en.html">how to create database and user using PostgreSQL<a></a>. In addition to that, you might also want to know how to backup and restore your database, right? So, this post is about how to do that.</a></p>
 
-<div class="a-block mt10 mb30 ml15 mr15">
-<a class="a-title" href="/en/2015/12/16/use-multiple-dropbox-accounts-on-mac-en.html">Use multiple Dropbox accounts on Mac</a>
-<p class="a-info mt10">
-    <i class="fa fa-clock-o mr7"></i>Dec 16, 2015
-    <i class="fa fa-tag ml15 mr7"></i>Mac
-    <p>Dropbox allows you to use multiple accounts on one machine at the same time only if you have upgraded your account. But there is a way found from the internet can help us to reach the goal without upgrading your account.</p>
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
 
+<p><br /></p>
 
-</p>
-<p class="mt20 mb35"><a class="a-readmore" href="/en/2015/12/16/use-multiple-dropbox-accounts-on-mac-en.html">Read more</a></p>
-<hr/>
-</div>
+<h3 id="backup-database">Backup database</h3>
+<p>There are various ways to backup a database. I’m going to introduce the simplest way: dump all data into a single text file. To dump data:</p>
+<pre><code class="bash">pg_dump [database] &gt; /path/to/[backup-file-name].txt</code></pre>
+<p><br /></p>
 
+<h3 id="restore-database">Restore database</h3>
+<p>To restore a database, you have to create an empty database:</p>
+<pre><code class="bash">psql -c "CREATE DATABASE [database];"</code></pre>
+<p>After that, let’s put data back into the new created database:</p>
+<pre><code class="bash">psql [database] &lt; [bacup-file-name].txt</code></pre>
+<p>That’s it. Don’t forget to backup your database regularly.
+<br />
+<br /></p>
 
-<!-- Pager -->
-
-<div class="pagination text-center">
-
-<a href="/pager/page3">&laquo; Prev</a>
-
-
-
-
-<a href="/pager/page3">1</a>
-
-
-
-<a href="/pager/page2">2</a>
-
-
-
-<a href="/pager/page3">3</a>
-
-
-
-<em>4</em>
-
-
-
-
-<span>Next &raquo;</span>
+<hr />
 
 </div>
-
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
