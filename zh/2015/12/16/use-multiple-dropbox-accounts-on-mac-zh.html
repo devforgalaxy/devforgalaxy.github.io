@@ -71,11 +71,41 @@ HOME=$HOME/YourPath /Applications/Dropbox.app/Contents/MacOS/Dropbox &gt;/dev/nu
 最後只需要將這個應用程式取名並儲存即可。儲存後，進入應用程式資料夾裡面，可以發現剛剛儲存的應用程式 ( <span class="a-hl-blue">.app</span> )。點擊後等待一下，就可以看到上方工具列出現 Dropbox 程式 Icon，接著填入你的帳號來連結就可以了。之後要同步該帳號資料，點擊此應用程式即可。
 <br /><br /></p>
 
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
 <hr />
 
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
