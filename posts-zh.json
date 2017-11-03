@@ -2,6 +2,11 @@
 
 
 {
+    "title": "Jekyll - 實現隨機文章功能",
+    "href": "/zh/2017/10/30/jekyll-add-random-post-link-to-page-zh.html"
+},
+
+{
     "title": "Django - 處理 JSON 請求",
     "href": "/zh/2017/10/23/django-handle-json-request-zh.html"
 },

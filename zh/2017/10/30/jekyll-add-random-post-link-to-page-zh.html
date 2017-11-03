@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Debug PHP application in Docker using Xdebug and Atom" />
+<meta name="description" content="Jekyll - 實現隨機文章功能" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devforgalaxy - Debug PHP application in Docker using Xdebug and Atom</title>
+<title>Devforgalaxy - Jekyll - 實現隨機文章功能</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -28,7 +28,7 @@
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
 <a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
-<a class="pull-right mt14" href="/about">About</a>
+<a class="pull-right mt14" href="/about">關於</a>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
@@ -36,14 +36,14 @@
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
-<a class="a-title">Debug PHP application in Docker using Xdebug and Atom</a>
+<a class="a-title">Jekyll - 實現隨機文章功能</a>
 <p class="a-info mt20 mb20">
-    <i class="fa fa-clock-o mr7"></i>Sep 22, 2016
-    <i class="fa fa-tag ml15 mr7"></i>PHP
+    <i class="fa fa-clock-o mr7"></i>Oct 30, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Jekyll
     <a class="btn btn-info a-btn-ver pull-right" 
-        href="/zh/2016/09/22/debug-containerised-php-app-using-xdebug-with-atom-zh.html">中文版</a>
+        href="/en/2017/10/30/jekyll-add-random-post-link-to-page-en.html">English</a>
 </p>
-<p>As more and more developers utilize Docker in development and production environment, debugging becomes more complex. Thus, this post is about how to debug PHP application in Docker by using Xdebug with Atom and php-debug.</p>
+<p><span class="a-hl-blue">Jekyll</span> 是一個很方便的靜態網站、部落格產生器，它最大的特點就是專注在產生一個靜態網站。但也因為這樣，有一些需要動態產生資料的功能就無法透過 Jekyll 直接實現。例如：每當頁面重整時，讓網頁產生隨機文章連結。但是我們還是有解決方案可以實現這個功能。所以，本篇將介紹如何利用 Jekyll 實現隨機文章的功能。</p>
 
 <p><br />
 <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -54,61 +54,50 @@
 
 <p><br /></p>
 
-<h3 id="install-and-set-xdebug-in-docker-container">Install and set Xdebug in Docker container</h3>
-<p>Before installation of Xdebug, make sure you open the port which Xdebug needs when you create a container. Like this:</p>
-<pre><code class="bash"># If Xdebug needs port 9000, then add -p 9000:9000 in the command
-docker run -d \
-           -p 80:80 \
-           -p 9000:9000 \
-           ...
+<h3 id="json-">產生 JSON 檔案</h3>
+<p>首先，讓我簡單介紹如何實現這個功能。儘管 Jekyll 無法實現動態功能，但是我們可以透過它來產生一個帶有網站文章資料的 JSON 檔案。一旦我們產生 JSON 檔案後，我們就可以使用 JavaScript 去讀取它並產生隨機文章連結。暸解後，我們就來產生這個 JSON 檔案。先建立一個名為 <span class="a-hl-green">posts.json</span> 的檔案，並將以下內容加入：</p>
+<pre><code class="json">---
+---
+[
+{% assign posts = site.posts | where:"your-filter","filter-value" %}
+{% for post in posts %}
+{
+    "title": "{{ post.title }}",
+    "href": "{{ post.url }}"
+}{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]
 </code></pre>
-<p>Let’s install Xdebug in your container:</p>
-<pre><code class="bash"># Enter into your container
-docker exec -it &lt;your-container-name&gt; bash
+<p>每當你進行 Build ，Jekyll 會產生一個完整的 <span class="a-hl-green">posts.json</span> 到 <span class="a-hl-green">_site</span> 資料夾下。
+<br />
+<br /></p>
 
-# Install Xdebug via pecl
-pecl install xdebug
+<h3 id="section">產生隨機文章連結</h3>
+<p>若你夠熟悉 JavaScript，接下來最後一步就相對簡單了。參考以下程式碼：</p>
+<pre><code class="javascript"> ... 
+&lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+$(function() {
+  fetch('/posts.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      // Generate an random index
+      var index = Math.floor(Math.random() * json.length);
+      // Get the post
+      var post = json[index];
+
+      // Do things with post ...
+
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+&lt;/script&gt;
 </code></pre>
-<p>Then put Xdebug settings at the end of <span class="a-hl-green">php.ini</span> (e.g. /usr/local/etc/php/php.ini).</p>
-<pre><code class="ini"># Skip some content ...
-
-zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so
-xdebug.remote_enable=1
-# Put the IP of Docker container below
-xdebug.remote_host=192.168.99.100
-xdebug.remote_connect_back=1
-xdebug.remote_port=9000
-xdebug.remote_handler=dbgp
-xdebug.remote_mode=req
-xdebug.remote_autostart=true
-</code></pre>
-<p>Don’t forget to restart the container to make sure Xdebug can work correctly. To restart:</p>
-<pre><code class="bash">docker restart &lt;your-container-name&gt;</code></pre>
-<p><br /></p>
-
-<h3 id="set-atom-up">Set Atom up</h3>
-<p>First, we have to install <span class="a-hl-blue">php-debug</span> for Atom. To install it via <span class="a-hl-blue">apm</span>:</p>
-<pre><code class="bash"># Install php-debug
-apm install php-debug
-
-# Enable php-debug
-apm enable php-debug
-</code></pre>
-<p>Or, you can install the package through <span class="a-hl-blue">Settings</span>. After installation, open the Atom’s config (<span class="a-hl-green">config.cson</span>) and put php-debug settings in it:</p>
-<pre><code class="bash">"*":
-  "php-debug":
-    PathMaps: [
-      "/path/to/app/in/docker;/path/to/app/in/local"
-    ]
-    ServerPort: 9000
-  welcome:
-    showOnStartup: false
-</code></pre>
-<p><br /></p>
-
-<h3 id="use-php-debug-in-atom">Use php-debug in Atom</h3>
-<p>How to debug? Open your file, and then press <span class="a-hl-red">fn + alt + F9</span> at the line where you want to insert breakpoints. After that, press <span class="a-hl-red">ctrl + alt + D</span> to open the php-debug window. You can see it shows “Listen on port 9000 …”. Now, it’s ready and all you have to do is to reload a page or rerun a script. All variables or related information will be revealed in that window.
-<br /><br /></p>
+<p>希望這篇文章可以讓更多人利用 Jekyll 開發更有趣的網站。
+<br /></p>
 
 <p><br /></p>
 <h3>You might also like:</h3>
@@ -125,7 +114,7 @@ apm enable php-debug
 <script>hljs.initHighlightingOnLoad();</script>
 <script>
 $(function() {
-  fetch('/posts-en.json')
+  fetch('/posts-zh.json')
     .then(function(response) {
       return response.json();
     })
@@ -153,9 +142,7 @@ $(function() {
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><br/>
 <div class="a-block mt5 mb30 ml15 mr15 text-center">
-<p class="a-contact">
-If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
-</p>
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
 &copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.

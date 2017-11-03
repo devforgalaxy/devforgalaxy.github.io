@@ -123,7 +123,7 @@ $(function() {
       var element = $('#more-posts');
       var contents = '';
       for (var count = 0; count < 8; ++count) {
-          index = Math.floor(Math.random() * json.length);
+          var index = Math.floor(Math.random() * json.length);
           var post = json[index];
           link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
           contents = contents + link;

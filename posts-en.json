@@ -2,6 +2,11 @@
 
 
 {
+    "title": "Jekyll - Generate random post links when refreshing page",
+    "href": "/en/2017/10/30/jekyll-add-random-post-link-to-page-en.html"
+},
+
+{
     "title": "Django - Handle JSON request",
     "href": "/en/2017/10/23/django-handle-json-request-en.html"
 },
