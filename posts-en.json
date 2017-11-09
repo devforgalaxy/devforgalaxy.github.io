@@ -2,6 +2,11 @@
 
 
 {
+    "title": "Compile and convert SCSS files into a single CSS file using Webpack",
+    "href": "/en/2017/11/09/webpack-complie-scss-into-css-en.html"
+},
+
+{
     "title": "Jekyll - Generate random post links when refreshing page",
     "href": "/en/2017/10/30/jekyll-add-random-post-link-to-page-en.html"
 },

@@ -2,6 +2,11 @@
 
 
 {
+    "title": "使用 Webpack 編譯 SCSS 檔案",
+    "href": "/zh/2017/11/09/webpack-complie-scss-into-css-zh.html"
+},
+
+{
     "title": "Jekyll - 實現隨機文章功能",
     "href": "/zh/2017/10/30/jekyll-add-random-post-link-to-page-zh.html"
 },
