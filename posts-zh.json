@@ -2,6 +2,11 @@
 
 
 {
+    "title": "利用 Webpack 減少 React 應用程式大小",
+    "href": "/zh/2017/11/13/reduce-react-app-size-zh.html"
+},
+
+{
     "title": "使用 Webpack 編譯 SCSS 檔案",
     "href": "/zh/2017/11/09/webpack-complie-scss-into-css-zh.html"
 },

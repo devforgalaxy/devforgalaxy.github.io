@@ -2,6 +2,11 @@
 
 
 {
+    "title": "Reduce React app's size using Webpack",
+    "href": "/en/2017/11/13/reduce-react-app-size-en.html"
+},
+
+{
     "title": "Compile and convert SCSS files into a single CSS file using Webpack",
     "href": "/en/2017/11/09/webpack-complie-scss-into-css-en.html"
 },
