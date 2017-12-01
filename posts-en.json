@@ -117,7 +117,7 @@
 },
 
 {
-    "title": "Fix ValueError: unknown locale: UTF-8 under macOS",
+    "title": "Fix Python ValueError: unknown locale: UTF-8 under macOS",
     "href": "/en/2016/11/26/fix-python-locale-utf8-under-mac-en.html"
 },
 
