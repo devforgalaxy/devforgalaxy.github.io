@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is an introduction to iOS storyboard feature." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iOS Development - An introduction to Storyboard | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">iOS Development - An introduction to Storyboard</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Dec 2, 2017
+    <i class="fa fa-tag ml15 mr7"></i>iOS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/ios-an-introduction-to-storyboard-zh.html">中文版</a>
+</p>
+<p><b><span class="a-hl-blue">Storyboard</span></b> has been introduced for a while, and it’s a great feature for developers. So, as a developer, it would be helpful if you can build a basic understanding of Storyboard before you start coding. In this post, I’m going to walk you through couple things to help you understand Storyboard.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="what-is-a-storyboard">What is a Storyboard</h3>
+<p>Before we dive into it, let’s take a closer look at what happens when your application starts. Once your iOS app starts, the system is going to read values in the <b><span class="a-hl-green">Info.plist</span></b>, an configuration contains essential information, for initialization. It tries to find out the name of your Storyboard from the config and load it. Now, create a single page app using Xcode, and open the Info.plist. You will find a key named <b><span class="a-hl-red">Main storyboard file base name</span></b>, and the value of it is <b><span class="a-hl-red">Main</span></b>. It means the system is going to load a Storyboard named <b><span class="a-hl-green">Main.storyboard</span></b> after it successfully retrieve the value from the config. The concept looks like this:
+<img width="100%" class="a-img" alt="ios storyboard" src="https://3.bp.blogspot.com/-TqPR5noHsbs/WiLB_A2BHUI/AAAAAAAACF8/e4Su3MuBjqwDcDB4uFsjcDpmQae1JBbJACLcBGAs/s1600/storyboard-1.png" />
+OK, let’s get more detailed information. Open Xcode and create a Tabbed application, then select the Main.storyboard. Now, you should be able to see an arrow pointing to a scene (it’s labeled as <b><span class="a-hl-red">Tab Bar Controller</span></b>), which means this is the entry point of this application. It looks like below:
+<img width="100%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-VzNHNUtWiUU/WiLSzTkU4TI/AAAAAAAACGY/Vq1v0Nt-oOI4wJy7Jp2UxyeVphcSNE1IwCLcBGAs/s1600/storyboard-2.png" />
+You probably notice the arrow is draggable, so yes you can drag and make it point to any scene you want. If you have a more complex application, you might need add more scenes to your Storyboard. Therefore, your application might look like this:
+<img width="100%" class="a-img" alt="ios storyboard" src="https://1.bp.blogspot.com/-64pEigNLzGw/WiL4so8jnxI/AAAAAAAACHU/UpKDmLNRa6kLAeg199XpbJ_Yuh25pUITwCLcBGAs/s640/storyboard-3.png" />
+Picture above shows there are two different scenes for users to switch, and lines between the entry point and scenes describe relationships (or transitions) between scenes. In iOS development world, relationship (transition) between different scenes is called <b><span class="a-hl-red">Segue</span></b>. Now you’ve learned the concept of Storyboard. So, what is a Storyboard exactly? In my opinion, Storyboard is a feature that visualizes an application’s design and flow, and it also simplifies the design process.
+<br />
+<br /></p>
+
+<h3 id="what-is-a-uiviewcontroller">What is a UIViewController</h3>
+<p>In the paragraph above, I’ve mentioned <b><span class="a-hl-red">scenes</span></b> many times. In fact, each scene is built on top of a <b><span class="a-hl-red">UIViewController</span></b>. You can think it as a container. A scene is composed of a lot of components like buttons, labels and inputs, and we put them into a container, UIViewController. By using it, we can manage those components at a granular level.
+<br />
+<br />
+But how to configure or modify UIViewController through codes? To achieve that, we can create a <b><span class="a-hl-blue">Swift</span></b> file, and add a Class into it. After that, open Main.storyboard and select a UIViewController (scene). In the identity inspector, set it’s Class to the Class you’ve added in the Swift file like this:
+<img width="100%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-kHUxVaR9dhs/WiLw89swMyI/AAAAAAAACGo/rFqI2A5xrAwE2XX4ZFdPw0RyWuAca6kIwCLcBGAs/s1600/storyboard-4.png" />
+After reading this post, I believe you already have a stronger understanding of Storyboard. I will drop more detailed information in the following posts. Hope this post is helpful to you.
+<br />
+<br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
