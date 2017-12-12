@@ -114,6 +114,10 @@ code {
     font-size: 10px !important;
     padding: 5px 10px;
 }
+.a-img-wrapper {
+    width: 100%;
+    text-align: center;
+}
 .a-img {
     margin-top: 35px;
     margin-bottom: 35px;

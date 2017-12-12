@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="This post is an introduction to iOS storyboard feature." />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>iOS Development - An introduction to Storyboard | Devforgalaxy</title>
+<title>iOS Development - An introduction to Storyboard Part 1 | Devforgalaxy</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -36,7 +36,7 @@
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
-<h1 class="a-title">iOS Development - An introduction to Storyboard</h1>
+<h1 class="a-title">iOS Development - An introduction to Storyboard Part 1</h1>
 <p class="a-info mt20 mb20">
     <i class="fa fa-clock-o mr7"></i>Dec 2, 2017
     <i class="fa fa-tag ml15 mr7"></i>iOS
@@ -61,17 +61,17 @@ OK, let’s get more detailed information. Open Xcode and create a Tabbed applic
 <img width="100%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-VzNHNUtWiUU/WiLSzTkU4TI/AAAAAAAACGY/Vq1v0Nt-oOI4wJy7Jp2UxyeVphcSNE1IwCLcBGAs/s1600/storyboard-2.png" />
 You probably notice the arrow is draggable, so yes you can drag and make it point to any scene you want. If you have a more complex application, you might need add more scenes to your Storyboard. Therefore, your application might look like this:
 <img width="100%" class="a-img" alt="ios storyboard" src="https://1.bp.blogspot.com/-64pEigNLzGw/WiL4so8jnxI/AAAAAAAACHU/UpKDmLNRa6kLAeg199XpbJ_Yuh25pUITwCLcBGAs/s640/storyboard-3.png" />
-Picture above shows there are two different scenes for users to switch, and lines between the entry point and scenes describe relationships (or transitions) between scenes. In iOS development world, relationship (transition) between different scenes is called <b><span class="a-hl-red">Segue</span></b>. Now you’ve learned the concept of Storyboard. So, what is a Storyboard exactly? In my opinion, Storyboard is a feature that visualizes an application’s design and flow, and it also simplifies the design process.
+Picture above shows there are two different scenes for users to switch, and lines between the entry point and scenes describe relationships (or transitions) between scenes. In iOS development world, relationship (transition) between different scenes is called <b><span class="a-hl-red">Segue</span></b>. Now, you’ve learned the basic concept of Storyboard. So, what is a Storyboard exactly? In my opinion, Storyboard is a feature that visualizes an application’s design and flow, and it also simplifies the design process.
 <br />
 <br /></p>
 
-<h3 id="what-is-a-uiviewcontroller">What is a UIViewController</h3>
-<p>In the paragraph above, I’ve mentioned <b><span class="a-hl-red">scenes</span></b> many times. In fact, each scene is built on top of a <b><span class="a-hl-red">UIViewController</span></b>. You can think it as a container. A scene is composed of a lot of components like buttons, labels and inputs, and we put them into a container, UIViewController. By using it, we can manage those components at a granular level.
+<h3 id="what-is-a-view-controller">What is a view controller</h3>
+<p>In the paragraph above, I’ve mentioned <b><span class="a-hl-red">scenes</span></b> many times. In fact, each scene is built on top of a <b><span class="a-hl-red">View Controller</span></b>. You can think it as a container. A scene is composed of a lot of components like buttons, labels and inputs, and we put them into a container: <b>View Controller</b>. By using it, we can manage those components at a granular level.
 <br />
 <br />
-But how to configure or modify UIViewController through codes? To achieve that, we can create a <b><span class="a-hl-blue">Swift</span></b> file, and add a Class into it. After that, open Main.storyboard and select a UIViewController (scene). In the identity inspector, set it’s Class to the Class you’ve added in the Swift file like this:
+But how to configure or control a view controller through codes? To achieve that, we can create a <b><span class="a-hl-blue">Swift</span></b> file, and add a Class into it. After that, open Main.storyboard and select a view controller (scene). In the identity inspector, set it’s Class to the Class you’ve added in the Swift file like this:
 <img width="100%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-kHUxVaR9dhs/WiLw89swMyI/AAAAAAAACGo/rFqI2A5xrAwE2XX4ZFdPw0RyWuAca6kIwCLcBGAs/s1600/storyboard-4.png" />
-After reading this post, I believe you already have a stronger understanding of Storyboard. I will drop more detailed information in the following posts. Hope this post is helpful to you.
+After reading this post, I believe you already have a stronger understanding of Storyboard. I will drop more detailed information in the following posts. Hope this post is helpful to you. Go to read <a target="_blank" href="/en/ios-an-introduction-to-storyboard-pt2-en.html" class="a-hl-blue"><b>iOS Development - An introduction to Storyboard Part 2</b></a>.
 <br />
 <br /></p>
 

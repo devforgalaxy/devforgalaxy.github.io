@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="本篇文章將介紹 iOS Storyboard，讓你初步認識 Storyboard 與 UIViewController。" />
+<meta name="description" content="本篇文章將介紹 iOS Storyboard，讓你初步認識 Storyboard 與 View Controller。" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>iOS 開發 - 暸解 Storyboard | Devforgalaxy</title>
+<title>iOS 開發 - 暸解 Storyboard 1/2 | Devforgalaxy</title>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -36,7 +36,7 @@
 <div class="row mt30">
 <div class="hidden-xs col-sm-2"></div>
 <div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
-<h1 class="a-title">iOS 開發 - 暸解 Storyboard</h1>
+<h1 class="a-title">iOS 開發 - 暸解 Storyboard 1/2</h1>
 <p class="a-info mt20 mb20">
     <i class="fa fa-clock-o mr7"></i>Dec 2, 2017
     <i class="fa fa-tag ml15 mr7"></i>iOS
@@ -65,13 +65,13 @@
 <br />
 <br /></p>
 
-<h3 id="uiviewcontroller">暸解 UIViewController</h3>
-<p>在上面的段落中，我提到了場景 (<b><span class="a-hl-red">Scene</span></b>) 好多次。實際上，每一個場景都是建立在 <b><span class="a-hl-red">UIViewController</span></b> 之上。試著把它想成一個容器，一個場景會需要好多的元件，例如：按鈕、文字方塊等等。而我們將這些元件放進 UIViewController 這個容器裡，這樣我們就可以透過它來進行更細部的管理。
+<h3 id="view-controller">暸解 View Controller</h3>
+<p>在上面的段落中，我提到了場景 (<b><span class="a-hl-red">Scene</span></b>) 好多次。實際上，每一個場景都是建立在 <b><span class="a-hl-red">View Controller</span></b> 之上。試著把它想成一個容器，一個場景會需要好多的元件，例如：按鈕、文字方塊等等。而我們將這些元件放進 View Controller 這個容器裡，這樣我們就可以透過它來進行更細部的管理。
 <br />
 <br />
-但是我們要如何利用程式來設定、修改 UIViewController 呢？ 要達成這個目的，我們可以新增一個 <b><span class="a-hl-blue">Swift</span></b> 檔案，然後加入一個 Class。然後打開 Main.storyboard 並選擇一個 UIViewController，然後在 Identity Inspector 裡面有一欄 Class，將它的值設定成你剛剛新增的 Class。這樣一來，你就可以利用程式碼控制 UIViewController。概念如下：
+但是我們要如何利用程式來設定、控制 View Controller 呢？ 要達成這個目的，我們可以新增一個 <b><span class="a-hl-blue">Swift</span></b> 檔案，然後加入一個 Class。然後打開 Main.storyboard 並選擇一個 View Controller，然後在 Identity Inspector 裡面有一欄 Class，將它的值設定成你剛剛新增的 Class。這樣一來，你就可以利用程式碼控制 View Controller。概念如下：
 <img width="100%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-kHUxVaR9dhs/WiLw89swMyI/AAAAAAAACGo/rFqI2A5xrAwE2XX4ZFdPw0RyWuAca6kIwCLcBGAs/s1600/storyboard-4.png" />
-到目前為止，相信你已經對 Storyboard 有更近一步的了解，我將會在之後的文章中介紹更多細節。希望此篇文章有幫助到你。
+到目前為止，相信你已經對 Storyboard 有更近一步的了解，我將會在之後的文章中介紹更多細節。希望此篇文章有幫助到你。繼續閱讀 <a target="_blank" href="/zh/ios-an-introduction-to-storyboard-pt2-zh.html" class="a-hl-blue"><b>iOS 開發 - 暸解 Storyboard 2/2</b></a>。
 <br />
 <br /></p>
 
