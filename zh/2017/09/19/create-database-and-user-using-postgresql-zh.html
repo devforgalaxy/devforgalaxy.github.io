@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="section">建立使用者</h3>
+<h3 id="建立使用者">建立使用者</h3>
 <p>要使用 PostgreSQL 提供的工具，你必須將目前使用者切換成 <span class="a-hl-blue">postgres</span>。切換後，新增使用者：</p>
 <pre><code class="bash">createuser [使用者名稱]</code></pre>
 <p>若你有安裝 <span class="a-hl-blue">sudo</span> 則可以：</p>
@@ -63,7 +63,7 @@
 <pre><code class="bash">psql -c "alter user [使用者名稱] with encrypted password '[密碼]';"</code></pre>
 <p><br /></p>
 
-<h3 id="section-1">建立資料庫</h3>
+<h3 id="建立資料庫">建立資料庫</h3>
 <p>一樣地使用 postgres 使用者身份繼續建立資料庫：</p>
 <pre><code class="bash">createdb [資料庫名稱]</code></pre>
 <p>同樣地，若有安裝 sudo 則可以：</p>
@@ -120,21 +120,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

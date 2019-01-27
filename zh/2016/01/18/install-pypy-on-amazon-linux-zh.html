@@ -54,12 +54,12 @@
 
 <p><br /></p>
 
-<h3 id="yum--pypy">透過 yum 安裝 PyPy</h3>
+<h3 id="透過-yum-安裝-pypy">透過 yum 安裝 PyPy</h3>
 <p>這個方法比較簡單，因為 Amazon 已預設提供 <span class="a-hl-blue">PyPy 2.4</span> ( 最新的版本為 PyPy 4.0.1 )，所以我們透過 yum 來安裝就可以了，指令如下：</p>
 <pre><code class="bash">sudo yum --enablerepo=amzn-preview install pypy</code></pre>
 <p><br /></p>
 
-<h3 id="portable-pypy">安裝 Portable PyPy</h3>
+<h3 id="安裝-portable-pypy">安裝 Portable PyPy</h3>
 <p>另一個方法則是使用 PyPy 官方提供的 <span class="a-hl-blue">Portable PyPy</span> 版本，安裝方式也很簡單，將 Portable PyPy 下載後解壓縮即可開始使用，安裝方法如下：</p>
 <pre><code class="bash"># 下載 Portable PyPy
 wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-4.0.1-linux_x86_64-portable.tar.bz2
@@ -69,7 +69,7 @@ tar -xvf pypy-4.0.1-linux_x86_64-portable.tar.bz2
 </code></pre>
 <p><br /></p>
 
-<h3 id="pypy">執行 PyPy</h3>
+<h3 id="執行-pypy">執行 PyPy</h3>
 <p>若你是使用 yum 來安裝 PyPy，那已經可以直接使用 <span class="a-hl-red">pypy</span> 指令。而 Portable PyPy 的執行檔就在解壓縮完的資料夾 <span class="a-hl-green">pypy-4.0.1-linux_x86_64-portable/bin</span> 底下，參考以下：</p>
 <pre><code class="ini"># PyPy 檔案結構
 pypy-4.0.1-linux_x86_64-portable
@@ -87,7 +87,7 @@ sudo ln -s /path/to/pypy-4.0.1-linux_x86_64-portable/bin/pypy /usr/local/bin
 <p>記得不要將 PyPy 的執行檔移動或複製到其他位置。
 <br /><br /></p>
 
-<h3 id="pypy--pip">替 PyPy 安裝 pip</h3>
+<h3 id="替-pypy-安裝-pip">替 PyPy 安裝 pip</h3>
 <p>安裝 pip 首先需要取得 <span class="a-hl-green">get-pip.py</span>，然後透過 pypy 執行該檔案進行安裝，指令如下：</p>
 <pre><code class="bash"># 取得 get-pip.py
 wget https://bootstrap.pypa.io/get-pip.py
@@ -145,21 +145,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

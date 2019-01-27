@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="cask-">Cask 檔案</h3>
+<h3 id="cask-檔案">Cask 檔案</h3>
 <p>Cask 檔案 ( 或稱 Formula ) 為 Homebrew Cask 執行編譯、安裝軟體腳本的名稱，其存放位置通常是在 <span class="a-hl-green">/usr/local/Library/Taps/caskroom/homebrew-cask/Casks/</span> ( 或者 /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask/Casks/ ) 底下。每一個套件都會有自己的 Cask 檔案。需要客製化自己的編譯方式或想要額外加入參數，就可以從這邊手動修改檔案。Homebrew Cask 提供指令開啟、編輯 Cask 檔案：</p>
 <pre><code class="bash"># 列出已安裝套件
 brew cask list
@@ -69,7 +69,7 @@ brew cask eidt virtualbox
 <br />
 <br /></p>
 
-<h3 id="cask--1">動手修改 Cask 檔案</h3>
+<h3 id="動手修改-cask-檔案">動手修改 Cask 檔案</h3>
 <p>按照上面的方式將檔案開啟後，我們需要手動改變版本參數，通常需要修改的地方是 <span class="a-hl-red">version</span> 與 <span class="a-hl-red">sha256</span> ( 仍以 VirtualBox 為例 )，內容如下：</p>
 <pre><code class="bash"># 預設最新版本為 5.1.8
 cask 'virtualbox' do
@@ -110,7 +110,7 @@ cask 'virtualbox' do
 </code></pre>
 <p><br /></p>
 
-<h3 id="section">重新安裝套件</h3>
+<h3 id="重新安裝套件">重新安裝套件</h3>
 <p>修改 Cask 檔案後，接著重新安裝套件，指令如下：</p>
 <pre><code class="bash"># 先移除套件，再重新安裝
 brew cask uninstall --force &lt;套件名稱&gt;; brew cask install &lt;套件名稱&gt;;
@@ -167,21 +167,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

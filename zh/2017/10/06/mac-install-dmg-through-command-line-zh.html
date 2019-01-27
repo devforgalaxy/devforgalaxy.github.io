@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="command-line--dmg-">透過 Command Line 安裝 .dmg 檔案</h3>
+<h3 id="透過-command-line-安裝-dmg-檔案">透過 Command Line 安裝 .dmg 檔案</h3>
 <p>整個安裝的過程一點也不複雜，基本上來說我們只需要將 .dmg 檔案掛載，接著把檔案全部複製到另一個資料夾，最後將 .dmg 卸載即可。暸解後，首先來掛載 .dmg 檔案：</p>
 <pre><code class="bash">sudo hdiutil attach [disk-image-name].dmg</code></pre>
 <p>進入掛載檔案：</p>
@@ -113,21 +113,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>
