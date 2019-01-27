@@ -54,12 +54,12 @@
 
 <p><br /></p>
 
-<h3 id="section">前置準備</h3>
+<h3 id="前置準備">前置準備</h3>
 <p>為了編譯一個可以在 AWS Lambda 環境下運行的 Pandoc，我們必須準備一個極為相似的運算環境。幸運地是，我們可以利用 <span class="a-hl-blue">Docker</span> 和 <a class="a-hl-blue" target="_blank" href="https://github.com/lambci/docker-lambda">docker-lambda</a> 來模擬 Lambda 環境。取得 Docker Image：</p>
 <pre><code class="bash">docker pull lambci/lambda:build-python2.7</code></pre>
 <p><br /></p>
 
-<h3 id="pandoc">編譯 Pandoc</h3>
+<h3 id="編譯-pandoc">編譯 Pandoc</h3>
 <p>開始之前，先來安裝開發套件 (注意，容器預設的工作目錄為 <span class="a-hl-green">/var/task</span>)：</p>
 <pre><code class="bash"># 安裝開發套件
 yum -y install gmp-devel freeglut-devel python-devel zlib-devel gcc m4
@@ -88,7 +88,7 @@ gzip pandoc
 <pre><code class="bash">docker cp [container-name]:/var/task/pandoc.gz /path/to/local/pandoc.gz</code></pre>
 <p><br /></p>
 
-<h3 id="pandoc-1">使用 Pandoc</h3>
+<h3 id="使用-pandoc">使用 Pandoc</h3>
 <p>如何在 AWS Lambda 上使用 Pandoc 呢？首先，建立一個 Lambda Function 並上傳你的程式與壓縮過的 Pandoc。接著，你必須了解 AWS Lambda 只讓我們在 <span class="a-hl-green">/tmp</span> 底下建立與下載檔案，所以我們將會解壓縮 Pandoc 到該處，並在那裡進行文件檔格式轉換。讓我們看個簡單的範例：</p>
 <pre><code class="python">import subprocess
 
@@ -161,21 +161,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

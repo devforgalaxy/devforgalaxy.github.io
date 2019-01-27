@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="launchd">暸解 Launchd</h3>
+<h3 id="暸解-launchd">暸解 Launchd</h3>
 <p>基本上 Launchd 是透過許多的 <span class="a-hl-green">plist</span> 檔案得知有哪些東西需要管理，所以若要新增任務給 Launchd，我們要新增一個任務定義檔 ( 即 plist 檔案 )，該檔案描述程式名稱、所在位置、執行方式等等。為了方便使用者操作 Launchd，它提供了 Launchctl 工具讓我們可以即時對 Launchd 下達指令。而 Launchd 根據任務的層級規劃了不同的資料夾來存放任務定義檔，不同資料夾基本的定義如下：</p>
 <pre><code class="ini">~/Library/LaunchAgents           Agents provided by the user.
  /Library/LaunchAgents           Agents provided by the administrator.
@@ -65,13 +65,13 @@
 <p>對於使用者自訂的任務，幾乎不會使用到 /System/… 開頭的資料夾，所以通常將自訂的任務定義檔放置其他的資料夾即可。
 <br /><br /></p>
 
-<h3 id="section">建立任務定義檔</h3>
+<h3 id="建立任務定義檔">建立任務定義檔</h3>
 <p>假設我需要在每天的 14:30 執行某個 Shell Script，必須先建立對應的 plist ( 例如：<span class="a-hl-green">com.myname.launch.some.program.plist</span> )，並定義內容：
 <script src="https://gist.github.com/devforgalaxy/f699db5513e482d973bd.js"></script></p>
 <p>建立好後將檔案放置於對應層級的資料夾即可，比如該 Script 只有我需要使用，則放置於 <span class="a-hl-green">~/Library/LaunchAgents</span> 會比較恰當。</p>
 <p><br /></p>
 
-<h3 id="launchctl">使用 Launchctl</h3>
+<h3 id="使用-launchctl">使用 Launchctl</h3>
 <p>任務內容設定好後，我們可以透過 Launchctl 將任務載入 ( 讓 Launchd 知道有新的任務加入 )，指令：</p>
 <pre><code class="ini"># 載入任務
 launchctl load ~/Library/LaunchAgents/com.myname.launch.some.program.plist
@@ -134,21 +134,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

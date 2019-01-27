@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="section">前置準備</h3>
+<h3 id="前置準備">前置準備</h3>
 <p>若你還未將環境設定好，你可以使用以下指令快速建立專案：</p>
 <pre><code class="bash"># 安裝 Django
 python -m pip install Django
@@ -75,7 +75,7 @@ django-admin startproject &lt;project-name&gt;
 </code></pre>
 <p><br /></p>
 
-<h3 id="view">建立 View</h3>
+<h3 id="建立-view">建立 View</h3>
 <p>使用 Django 的好處就是它提供了許多預設機制，我們只需要去改寫部分細節、或者是定義自己想要的處理方式即可。以處理 Error 404 來說，Django 其實已經有一個預設的處理機制與頁面，因此我們不需要從零開始。當 Error 404 出現時，Django 會針對這個狀況指定一個 View (也就是我們程式邏輯所在部分)，所以我們可以在 <span class="a-hl-green">view.py</span> 中加入以下程式碼：</p>
 <pre><code class="python"># View for error 404
 class Error404View(View):
@@ -93,7 +93,7 @@ class Error500View(View):
 <br />
 <br /></p>
 
-<h3 id="url-">修改 URL 設定檔</h3>
+<h3 id="修改-url-設定檔">修改 URL 設定檔</h3>
 <p>前面的步驟還沒有辦法讓 Django 知道我們新的 View 要怎麼用以及何時用，因此我們現在要透過 URL 設定檔將它們連結起來，開啟 <span class="a-hl-green">urls.py</span> 並將以下內容加入：</p>
 <pre><code class="python">from django.conf.urls import handler404, handler500
 
@@ -111,7 +111,7 @@ handler500 = Error500View.as_view()
 <br />
 <br /></p>
 
-<h3 id="section-1">測試</h3>
+<h3 id="測試">測試</h3>
 <p>若你目前已開啟 Debug 模式，剛剛設定的頁面是沒有辦法正常呈現的。你必須要到 <span class="a-hl-green">settings.py</span> 中把 Debug 模式關閉才能看到結果：</p>
 <pre><code class="python">DEBUG = False</code></pre>
 <p><br />
@@ -163,21 +163,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

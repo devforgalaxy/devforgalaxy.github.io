@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="docker--xdebug">在 Docker 容器中安裝與設定 Xdebug</h3>
+<h3 id="在-docker-容器中安裝與設定-xdebug">在 Docker 容器中安裝與設定 Xdebug</h3>
 <p>在安裝與設定 Xdebug 前，記得先把 Xdebug 需要使用的 Port 打開，範例如下：</p>
 <pre><code class="bash"># 假設 Xdebug 需要 port 9000，則加入 -p 9000:9000
 docker run -d \
@@ -86,7 +86,7 @@ xdebug.remote_autostart=true
 <pre><code class="bash">docker restart &lt;your-container-name&gt;</code></pre>
 <p><br /></p>
 
-<h3 id="atom">設定 Atom</h3>
+<h3 id="設定-atom">設定 Atom</h3>
 <p>為了要在 Atom 中 Debug，我們需要安裝 php-debug 套件。透過 <span class="a-hl-blue">apm</span> 安裝套件：</p>
 <pre><code class="bash"># 安裝 php-debug
 apm install php-debug
@@ -106,7 +106,7 @@ apm enable php-debug
 </code></pre>
 <p><br /></p>
 
-<h3 id="atom--php-debug">在 Atom 中使用 php-debug</h3>
+<h3 id="在-atom-中使用-php-debug">在 Atom 中使用 php-debug</h3>
 <p>如何除錯？首先開啟檔案，在你想要加入中斷點的地方，使用快捷鍵 <span class="a-hl-red">fn + alt + F9</span> 插入中斷點，設定好後按下 <span class="a-hl-red">ctrl + alt + D</span> 開啟 php-debug 視窗，你可以看到顯示 “Listen on port 9000 …“。代表它已經準備好，這時你只需要將頁面重新載入或重新執行程式，就可以看到 php-debug 視窗顯示參數與其他相關資訊。
 <br /><br /></p>
 
@@ -156,21 +156,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

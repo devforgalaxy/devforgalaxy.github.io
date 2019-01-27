@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="section">前置準備</h3>
+<h3 id="前置準備">前置準備</h3>
 <p>接下來的步驟將都會在 <span class="a-hl-blue">Debian</span> 上示範，所以在開始安裝 Node.js 與 npm 之前，我們先更新套件管理工具與下載所需軟體 cUrl：</p>
 <pre><code class="bash"># 更新 Debian's 套件管理工具
 apt-get update
@@ -64,7 +64,7 @@ apt-get -y install curl
 </code></pre>
 <p><br /></p>
 
-<h3 id="nodejs--npm">安裝 Node.js 與 npm</h3>
+<h3 id="安裝-nodejs-與-npm">安裝 Node.js 與 npm</h3>
 <p>若你直接透過 <span class="a-hl-red">apt-get install -y nodejs</span> 安裝 Node.js，你會下載到較舊的版本。所以若要安裝較新的版本我們可以使用：</p>
 <pre><code class="bash"># 安裝 Node.js 6.X
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
@@ -76,7 +76,7 @@ apt-get -y install nodejs
 </code></pre>
 <p><br /></p>
 
-<h3 id="section-1">確認安裝版本</h3>
+<h3 id="確認安裝版本">確認安裝版本</h3>
 <p>安裝好後，確認一下我們安裝的版本，指令如下：</p>
 <pre><code class="bash"># 查看 Node.js 版本
 nodejs -v
@@ -134,21 +134,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

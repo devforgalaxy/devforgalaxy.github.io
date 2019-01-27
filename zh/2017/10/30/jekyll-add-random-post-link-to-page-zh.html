@@ -54,7 +54,7 @@
 
 <p><br /></p>
 
-<h3 id="json-">產生 JSON 檔案</h3>
+<h3 id="產生-json-檔案">產生 JSON 檔案</h3>
 <p>首先，讓我簡單介紹如何實現這個功能。儘管 Jekyll 無法實現動態功能，但是我們可以透過它來產生一個帶有網站文章資料的 JSON 檔案。一旦我們產生 JSON 檔案後，我們就可以使用 JavaScript 去讀取它並產生隨機文章連結。暸解後，我們就來產生這個 JSON 檔案。先建立一個名為 <span class="a-hl-green">posts.json</span> 的檔案，並將以下內容加入：</p>
 <pre><code class="json">---
 ---
@@ -72,7 +72,7 @@
 <br />
 <br /></p>
 
-<h3 id="section">產生隨機文章連結</h3>
+<h3 id="產生隨機文章連結">產生隨機文章連結</h3>
 <p>若你夠熟悉 JavaScript，接下來最後一步就相對簡單了。參考以下程式碼：</p>
 <pre><code class="javascript"> ... 
 &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js&quot;&gt;&lt;/script&gt;
@@ -145,21 +145,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>

@@ -54,13 +54,13 @@
 
 <p><br /></p>
 
-<h3 id="storyboard--view-controller">設定 Storyboard 初始 View Controller</h3>
+<h3 id="設定-storyboard-初始-view-controller">設定 Storyboard 初始 View Controller</h3>
 <p>還記得什麼是 iOS 應用程式的進入點 (<b>Entry Point</b>) 嗎？當你打開 Storyboard，你會看到有一個箭頭指向一個場景，這個箭頭說明了這裡是該應用程式的進入點。它是可以被拖拉，而且是可以被刪除的。沒錯，你可以將它刪除掉，但是如此一來你的應用程式就無法正常的運作。那如果不小心刪掉它，該怎麼重新設定呢？首先，打開 Storyboard 並選擇一個場景 (View Controller)，接著到右邊的 <b class="a-hl-blue">Attributes Inspector</b>，將 <b class="a-hl-blue">Is initial View Controller</b> 勾選即可。像這樣：</p>
 <div class="a-img-wrapper"><img width="50%" class="a-img" alt="ios storyboard" src="https://2.bp.blogspot.com/-pMIxDk4cjDU/Wi17PFPuZNI/AAAAAAAACHo/Q7YqrCxKJPcBFtEuM-PVf4DRLftDrkHVgCLcBGAs/s1600/Screen%2BShot%2B2017-12-11%2Bat%2B2.13.56%2BAM.png" /></div>
 <p><br />
 <br /></p>
 
-<h3 id="view-controller--class">設定 View Controller 的 Class</h3>
+<h3 id="設定-view-controller-的-class">設定 View Controller 的 Class</h3>
 <p>在上一篇文章中，我提到開發者可以透過程式碼去控制每一個 View Controller，但前提是你必須要先指定一個 Class 給它。讓我來示範如何設定。首先，新建一個 Tabbed 應用程式作為範例，接著新增一個 Swift 檔案。在新增視窗中，選擇 <b class="a-hl-blue">Cocoa Touch Class</b> 模板，像這樣：
 <img width="100%" class="a-img" alt="ios storyboard" src="https://1.bp.blogspot.com/-oZJrukOc1DA/Wi1_D6jy7RI/AAAAAAAACH0/TRDyao4kmZcjfeKxvg4OzIV8MivuvCWEgCLcBGAs/s1600/Screen%2BShot%2B2017-12-11%2Bat%2B2.33.16%2BAM.png" />
 下一步輸入 View Controller 的檔名，然後設定 <b class="a-hl-blue">Subclass of</b> 的值為 <b class="a-hl-blue">UIViewController</b>，像這樣：
@@ -119,21 +119,21 @@ $(function() {
 <p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
 <p class="a-contact">
 <i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
-&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+&copy;&nbsp;2015-2019 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
 </p>
 </div>
 </div>
 <div class="hidden-xs col-sm-2"></div>
 </div>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44444174-7"></script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-44444174-6', 'auto');
-ga('send', 'pageview');
+  gtag('config', 'UA-44444174-7');
 </script>
 </body>
 </html>
