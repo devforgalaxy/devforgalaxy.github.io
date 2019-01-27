@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to use multiple Dropbox accounts on Mac without upgrading your Dropbox accounts." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use multiple Dropbox accounts on Mac | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Use multiple Dropbox accounts on Mac</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Dec 16, 2015
+    <i class="fa fa-tag ml15 mr7"></i>Mac
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2015/12/16/use-multiple-dropbox-accounts-on-mac-zh.html">中文版</a>
+</p>
+<p>Dropbox allows you to use multiple accounts on one machine at the same time only if you have upgraded your account. But there is a way found from the internet can help us to reach the goal without upgrading your account.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="how-does-dropbox-synchronize-files">How does Dropbox synchronize files</h3>
+<p>Before we start to do it, it’s better to know how it synchronizes files. Once you run the Dropbox’s application, it will automatically search a folder named Dropbox and start to synchronize files, and that’s why it asks us to assign a directory to create the folder at the very first time. If you change the name of the folder, it won’t find the Dropbox folder, and then you have to assign the directory again.
+<br /><br /></p>
+
+<h3 id="use-automator-to-run-dropbox">Use Automator to run Dropbox</h3>
+<p>Mac OS X provides a useful tool named <span class="a-hl-blue">Automator</span>, and we can use it to create a service or an application. Now, we are going to create an application to launch Dropbox. Open Automator and choose <span class="a-hl-red">Application</span>. Like this:<br />
+<img width="100%" class="a-img" src="https://1.bp.blogspot.com/-NCSykSFgfbs/Vm_NWYRIPmI/AAAAAAAACCI/lF_vqbzywGU/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.18.45.png" />
+In the left menu, click <span class="a-hl-red">Utilities</span> &gt; <span class="a-hl-red">Run Shell Script</span>. Then drag this item to the workflow block. Like this:
+<img width="100%" class="a-img" src="https://4.bp.blogspot.com/-VrXnRCxCkCM/Vm_OIuWRITI/AAAAAAAACCQ/PAqH5PoFXvM/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.21.51.png" />
+Paste the script into it:</p>
+<pre><code class="bash">bash
+HOME=$HOME/YourPath /Applications/Dropbox.app/Contents/MacOS/Dropbox &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+<p>Change <span class="a-hl-red">YourPath</span> to the directory you like. If the path is same as the path of your first Dropbox folder, the second one will override the first one. So, avoid that. Your script should be:
+<img width="100%" class="a-img" src="https://3.bp.blogspot.com/-50-hcGF09rQ/Vm_RP7ynqPI/AAAAAAAACCc/U9HXVQGQyws/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.35.15.png" />
+Finally, save the file. Now, you can go the Application folder and find the application you created ( <span class="a-hl-blue">XYZ.app</span> ). Click this application, and you can find out Dropbox is running. Then it will ask you to sign in in order to synchronize files. Everytime you want to sync this account’s files, just run this app.
+<br /><br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何替 Vim 安裝語法檢查工具：Syntastic。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>替 Vim 安裝語法檢查工具：Syntastic | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">替 Vim 安裝語法檢查工具：Syntastic</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Nov 18, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Vim
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2016/11/18/install-syntastic-on-mac-en.html">English</a>
+</p>
+<p><span class="a-hl-blue">Syntastic</span> 是一個檢查程式語法的工具，它不僅支援多種程式語言，而且可進一步結合其他工具針對 Coding Style 進行檢查 (如 Flake8 支援 PEP 8)，對於想要把 Vim 當做 IDE 的人相當的有用。本篇將介紹如何在 macOS 上安裝、使用Syntastic</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>我習慣使用套件管理工具 <span class="a-hl-blue">Vundle</span> 來安裝 Vim 的套件，因此接下來也會使用它來進行安裝的步驟。你也可以試試看這個簡單、方便的工具。
+<br /><br /></p>
+
+<h3 id="syntastic">安裝 Syntastic</h3>
+<p>接下來就透過 Vundle 來安裝 Syntastic。首先開啟 Vim 的設定檔 (<span class="a-hl-green">/etc/vimrc</span> 或 <span class="a-hl-green">~/.vimrc</span>)，接著加入套件名稱與相關設定於該檔案中。範例如下：</p>
+<pre><code class="bash">" 省略部分內容 ... "
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+" 在此加入 Syntastic 套件 "
+Plugin 'scrooloose/syntastic'
+
+call vundle#end()
+filetype plugin indent on
+
+" 省略部分內容 ... "
+
+" 以下為 Syntastic 相關設定，直接加入在 vimrc 檔案最後即可 "
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+</code></pre>
+<p>若你有特別想使用的檢查工具，也可以在設定檔中指定，如下：</p>
+<pre><code class="bash">" 指定其他檢查工具，但記得需要先自行安裝 "
+let g:syntastic_&lt;filetype&gt;_checkers = ['&lt;checker-name&gt;']
+
+" 例如：使用 Flake8 與 pylint 取代預設檢查工具 "
+let g:syntastic_python_checkers = ['flake8', 'pylint']
+</code></pre>
+<p>此外，我們還可以設定特定的顯示符號或者是表情符號，如下：</p>
+<pre><code class="bash">let g:syntastic_error_symbol = 'Put a symbol or an emoji you like'
+let g:syntastic_warning_symbol = 'Put a symbol or an emoji you like'
+</code></pre>
+<p>接著在 Vim 中執行安裝套件指令：</p>
+<pre><code class="bash">:PluginInstall</code></pre>
+<p>或者在 Terminal 中執行：</p>
+<pre><code class="bash">vim +PluginInstall +qall</code></pre>
+<p><br /></p>
+
+<h3 id="syntastic-1">使用 Syntastic</h3>
+<p>安裝完後，基本的語法檢查會根據不同檔案類別自動啟用，一旦執行儲存時它會自動開啟一個視窗並將錯誤的行號及原因列出。若需要更詳細的資訊，執行以下指令：</p>
+<pre><code class="bash">:help syntastic</code></pre>
+<p><br /><br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何替 PyPy 安裝套件管理工具：pip。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>替 PyPy 安裝套件管理工具：pip | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">替 PyPy 安裝套件管理工具：pip</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Mar 13, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Python
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/03/13/install-and-use-pip-for-pypy-en.html">English</a>
+</p>
+<p>隨著 PyPy 社群與整個生態日趨成熟，未來將會有更多機會在新的專案中使用它，所以將如何替 PyPy 安裝 <span class="a-hl-blue">pip (套件管理工具)</span> 與其使用方式做個簡單的紀錄。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>在開始安裝 pip 前，先確認你已經將 PyPy 安裝於欲使用的環境或機器上。接下來的步驟將在 <span class="a-hl-blue">Debian</span> 上示範，安裝 PyPy 指令為：</p>
+<pre><code class="bash"># 更新 Debian 套件工具
+apt-get update
+
+# 安裝 PyPy 與 curl
+apt-get -y install curl pypy
+</code></pre>
+<p><br /></p>
+
+<h3 id="pip">安裝 pip</h3>
+<p>安裝完 PyPy 後，接著來安裝 pip：</p>
+<pre><code class="bash"># 安裝 pip
+curl https://bootstrap.pypa.io/get-pip.py | pypy
+
+# 更新 pip
+pypy -m pip install --upgrade pip
+</code></pre>
+<p><br /></p>
+
+<h3 id="pip-1">使用 pip</h3>
+<p>以下為 pip 的安裝與移除模組使用方式：</p>
+<pre><code class="bash"># 安裝第三方模組
+# 範例: pypy -m pip install [module-name]
+pypy -m pip install requests
+
+# 移除模組
+# 範例: pypy -m pip uninstall [module-name]
+pypy -m pip uninstall requests
+</code></pre>
+<p><br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

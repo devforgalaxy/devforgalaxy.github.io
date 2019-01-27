@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何使用 Fake S3 模擬及測試 Amazon S3 服務。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使用 Fake S3 模擬及測試 Amazon S3 服務 | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">使用 Fake S3 模擬及測試 Amazon S3 服務</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Feb 14, 2017
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/02/14/use-fake-s3-to-test-aws-s3-api-en.html">English</a>
+</p>
+<p><span class="a-hl-blue">Fake S3</span> 是一個以 Ruby 語言開發的輕量級工具，它可以讓我們在非正式環境下模擬及測試 S3 服務，所以你可以在自己的機器上透過不同的 SDK (例如：boto3、AWS SKD for PHP) 去測試 S3 的 API。本篇文章將介紹如何在 macOS 上設定與使用 Fake S3 。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>將下來我們將使用 <span class="a-hl-blue">Docker</span> 來啟用 Fake S3，所以你需要確認你的機器上已經安裝 Docker。通常為了加速開發速度，用 Docker 是比較方便且一致。若你不想使用 Docker 而想要直接安裝 Fake S3 可以利用以下指令來安裝：</p>
+<pre><code class="bash">gem install fakes3</code></pre>
+<p><br /></p>
+
+<h3 id="fake-s3">啟用 Fake S3</h3>
+<p>透過 Docker 來啟用 Fake S3 相當方便，指令如下：</p>
+<pre><code class="bash"># Run Fake S3 as a standalone service, and open the port 4569
+docker run -d \
+           -p 4569:4569 \
+           --name s3 \
+           lphoward/fake-s3
+</code></pre>
+<p><br /></p>
+
+<h3 id="fake-s3-1">測試 Fake S3</h3>
+<p>要利用 Fake S3 來測試你的應用程式，你只需要在初始化 Client 物件時修改 AWS 相關參數即可。以下分別為使用 Python 與 PHP 的範例：</p>
+<pre><code class="python"># Python 範例
+from boto3 import client
+
+s3_client = client(
+    service_name='s3',
+    endpoint_url='http://your-fake-s3-ip:4569',
+    region_name='',
+    aws_access_key_id='',
+    aws_secret_access_key=''
+)
+</code></pre>
+<pre><code class="php"># PHP 範例
+use Aws\S3\S3Client;
+use Aws\Exception\S3Exception;
+
+$fake_s3_settings = [
+    'version' =&gt; 'latest',
+    'region'  =&gt; '',
+    'endpoint' =&gt; 'http://your-fake-s3-ip:4569',
+    'credentials' =&gt; [
+        'key' =&gt; '',
+        'secret' =&gt; ''
+    ]
+];
+$s3_client = new S3Client($fake_s3_settings);
+</code></pre>
+<p><br /></p>
+
+<h3 id="section-1">資料存放位置</h3>
+<p>若設定、啟用無誤，你所上傳的檔案會被放置於容器內的 <span class="a-hl-green">/fakes3_root</span> 資料夾。你檔案的路徑應該像這樣： <span class="a-hl-green">/fakes3_root/bucket_name/path/to/your/file</span>。
+<br />
+<br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

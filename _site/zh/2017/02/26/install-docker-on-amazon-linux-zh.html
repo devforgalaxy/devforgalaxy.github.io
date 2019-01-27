@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何在 Amazon Linux 上安裝、使用 Docker。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在 Amazon Linux 上安裝、使用 Docker | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">在 Amazon Linux 上安裝、使用 Docker</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Feb 26, 2017
+    <i class="fa fa-tag ml15 mr7"></i>AWS
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/02/26/install-docker-on-amazon-linux-en.html">English</a>
+</p>
+<p>雖然 Amazon 已經推出 <span class="a-hl-blue">EC2 Container Service</span> 一陣子了， 但我猜想很多人還是會想要自行安裝 <span class="a-hl-blue">Docker</span>，所以本篇將介紹如何在 Amazon Linux 上安裝、使用 Docker。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>在開始前，請先建立你的 EC2 Instance (使用 <span class="a-hl-green">Amazon Linux AMI</span>)。建立完成後，我們就可以透過金鑰 SSH 連線至你的環境：</p>
+<pre><code class="bash"># 將金鑰 (.pem) 設為唯讀
+chmod 400 /path/to/your/ec2.pem
+
+# 使用預設帳號 (ec2-user) 登入
+ssh -i "ec2.pem" ec2-user@ip
+</code></pre>
+<p><br /></p>
+
+<h3 id="docker">安裝 Docker</h3>
+<p>接著透過 <span class="a-hl-red">yum</span> 來安裝 Docker:</p>
+<pre><code class="bash"># 先更新
+sudo yum update -y
+
+# 安裝 Docker
+sudo yum install -y docker
+
+# 確認 Docker 版本
+sudo docker -v
+
+# 查閱 Docker 資訊
+sudo docker info
+</code></pre>
+<p>若你不想每次都透過 <span class="a-hl-red">sudo</span> 執行 Docker 指令，我們可以將 ec2-user 加入 Docker 群組：</p>
+<pre><code class="bash">sudo usermod -a -G docker ec2-user</code></pre>
+<p><br /></p>
+
+<h3 id="docker-">管理 Docker 服務</h3>
+<p>以下指令用來管理 Docker daemon：</p>
+<pre><code class="python"># 啟動 Docker
+sudo service docker start
+
+# 停止 Docker
+sudo service docker stop
+</code></pre>
+<p><br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

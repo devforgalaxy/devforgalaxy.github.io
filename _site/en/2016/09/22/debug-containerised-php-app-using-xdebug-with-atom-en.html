@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to debug PHP application in Docker using Xdebug and Atom." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debug PHP application in Docker using Xdebug and Atom | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Debug PHP application in Docker using Xdebug and Atom</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Sep 22, 2016
+    <i class="fa fa-tag ml15 mr7"></i>PHP
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2016/09/22/debug-containerised-php-app-using-xdebug-with-atom-zh.html">中文版</a>
+</p>
+<p>As more and more PHP developers utilize Docker in development and production environment, debugging becomes more complex. Thus, this post is about how to debug PHP application in Docker by using Xdebug with Atom and php-debug.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="install-and-set-xdebug-in-docker-container">Install and set Xdebug in Docker container</h3>
+<p>Before installation of Xdebug, make sure you open the port which Xdebug needs when you create a container. Like this:</p>
+<pre><code class="bash"># If Xdebug needs port 9000, then add -p 9000:9000 in the command
+docker run -d \
+           -p 80:80 \
+           -p 9000:9000 \
+           ...
+</code></pre>
+<p>Let’s install Xdebug in your container:</p>
+<pre><code class="bash"># Enter into your container
+docker exec -it &lt;your-container-name&gt; bash
+
+# Install Xdebug via pecl
+pecl install xdebug
+</code></pre>
+<p>Then put Xdebug settings at the end of <span class="a-hl-green">php.ini</span> (e.g. /usr/local/etc/php/php.ini).</p>
+<pre><code class="ini"># Skip some content ...
+
+zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so
+xdebug.remote_enable=1
+# Put the IP of Docker container below
+xdebug.remote_host=192.168.99.100
+xdebug.remote_connect_back=1
+xdebug.remote_port=9000
+xdebug.remote_handler=dbgp
+xdebug.remote_mode=req
+xdebug.remote_autostart=true
+</code></pre>
+<p>Don’t forget to restart the container to make sure Xdebug can work correctly. To restart:</p>
+<pre><code class="bash">docker restart &lt;your-container-name&gt;</code></pre>
+<p><br /></p>
+
+<h3 id="set-atom-up">Set Atom up</h3>
+<p>First, we have to install <span class="a-hl-blue">php-debug</span> for Atom. To install it via <span class="a-hl-blue">apm</span>:</p>
+<pre><code class="bash"># Install php-debug
+apm install php-debug
+
+# Enable php-debug
+apm enable php-debug
+</code></pre>
+<p>Or, you can install the package through <span class="a-hl-blue">Settings</span>. After installation, open the Atom’s config (<span class="a-hl-green">config.cson</span>) and put php-debug settings in it:</p>
+<pre><code class="bash">"*":
+  "php-debug":
+    PathMaps: [
+      "/path/to/app/in/docker;/path/to/app/in/local"
+    ]
+    ServerPort: 9000
+  welcome:
+    showOnStartup: false
+</code></pre>
+<p><br /></p>
+
+<h3 id="use-php-debug-in-atom">Use php-debug in Atom</h3>
+<p>How to debug? Open your file, and then press <span class="a-hl-red">fn + alt + F9</span> at the line where you want to insert breakpoints. After that, press <span class="a-hl-red">ctrl + alt + D</span> to open the php-debug window. You can see it shows “Listen on port 9000 …”. Now, it’s ready and all you have to do is to reload a page or rerun a script. All variables or related information will be revealed in that window.
+<br /><br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to handle JSON request using Django." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Django - Handle JSON request | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Django - Handle JSON request</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Oct 23, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Djnago
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2017/10/23/django-handle-json-request-zh.html">中文版</a>
+</p>
+<p>In previous <a class="a-hl-blue" target="_blank" href="/en/2017/09/30/django-return-json-response-en.html">post</a>, I’ve showed you how to return JSON-encoded response. Today, let’s continue on dealing with JSON. In this article, I’m going to talk about how to handle JSON requests (POST, PUT, etc.) using Django web framework.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="prerequisite">Prerequisite</h3>
+<p>If you have not created a proper environment for the following steps, you can use below commands:</p>
+<pre><code class="bash"># Install Django
+python -m pip install Django
+
+# Check Django's version
+python -m django --version
+
+# Create a new Django project
+django-admin startproject &lt;project-name&gt;
+</code></pre>
+<p>The structure of your project should look like this:</p>
+<pre><code class="python">project-name/
+├── project-name
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+</code></pre>
+<p><br /></p>
+
+<h3 id="handle-json-request">Handle JSON request</h3>
+<p>It’s very easy to handle incoming JSON requests using Django. When client side send a JSON request (POST, PUT, etc.), Django will create a <span class="a-hl-red">HttpRequest</span> object that stores data about the request. And where is our JSON data? You can get it from HttpRequest object’s property <span class="a-hl-red">body</span>. For example:</p>
+<pre><code class="python">import json
+from django.views import View
+
+class DummyView(View):
+
+    def post(self, request):
+
+        if request.body:
+            # Decode data to a dict object
+            json_data = json.loads(request.body)
+
+            # Do things with json_data ...
+
+</code></pre>
+<p>OK, now you’ve realized how to get JSON data, but it’s quite annoying to add that code snippet into your views again and again, right? In fact, we can utilize Decorator to take over repetitive work.
+<br />
+<br /></p>
+
+<h3 id="use-decorator">Use Decorator</h3>
+<p>Using Decorator allows us to reduce redundant code snippets easily, and Django already provides us with a useful utility called <span class="a-hl-red">django.utils.decorators</span>. Let me show you how to use it. First, create a Python script named <span class="a-hl-green">decorators.py</span>, and then put below contents into it:</p>
+<pre><code class="python">import json
+from functools import wraps
+from django.conf import settings
+from django.http import HttpRequest, HttpResponse
+
+def dummy_json(view_func):
+
+    @wraps(view_func)
+    def wrapper_view_func(request, *args, **kwargs):
+
+        # Add simple validation or your own validation rule
+        if request.content_type == 'application/json':
+            if request.body:
+                # Decode data to a dict object
+                request.json = json.loads(request.body)
+            else:
+                request.json = None
+        return view_func(request, *args, **kwargs)
+    return wrapper_view_func
+
+</code></pre>
+<p>As you see, I defined a decorator named <span class="a-hl-red">dummy_json</span>, and we can apply it in <span class="a-hl-green">view.py</span> like this:</p>
+<pre><code class="python">import json
+from decorators import *
+from django.views import View
+from django.utils.decorators import method_decorator
+
+class DummyView(View):
+
+    @method_decorator(dummy_json)
+    def post(self, request):
+        json_data = request.json
+
+        # Then do things with json_data ...
+
+</code></pre>
+<p>Now, you can start to handle JSON requests with custom decorator.
+<br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

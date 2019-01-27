@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何建立屬於自己的 Hubot (2) - 安裝與設定 Hubot。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>建立屬於自己的 Hubot (2) - 安裝與設定 Hubot | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">建立屬於自己的 Hubot (2) - 安裝與設定 Hubot</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Apr 14, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Hubot
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/04/14/install-and-set-first-hubot-en.html">English</a>
+</p>
+<p>在<a class="a-hl-blue" target="_blank" href="/zh/2017/04/04/install-nodejs-and-npm-for-hubot-zh.html">第一篇文章</a>中，我們已經下載所要用到的套件，並將 Hubot 運行的環境準備好了，讓我們繼續接下來的步驟：安裝與建立你的第一個 Hubot。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>確認一下你的機器已經安裝 <span class="a-hl-blue">Node.js</span> 與 <span class="a-hl-blue">npm</span>：</p>
+<pre><code class="bash"># 查看 Node.js 版本
+nodejs -v
+
+# 查看 npm 版本
+npm -v
+</code></pre>
+<p><br /></p>
+
+<h3 id="yo--hubot-generator">安裝 Yo 與 Hubot Generator</h3>
+<p><span class="a-hl-blue">Yo</span> (Yeoman) 是一個很好用的工具，它可以幫助我們快速建立 Web 專案架構，而我們透過定義一個 <span class="a-hl-blue">Generator</span> (Yeoman workflow) 來描述專案架構，如此一來 Yo 就知道如何幫我們完成瑣碎的工作。幸運的是，Github 團隊已經提供一個 Generator 讓我們輕鬆的建立 Hubot。使用以下指令安裝 Yo 與 Hubot generaotr：</p>
+<pre><code class="bash"># 安裝 Yo 與 Hubot generator
+npm install -g yo generator-hubot
+</code></pre>
+<p><br /></p>
+
+<h3 id="hubot">建立 Hubot</h3>
+<p>剛剛提到要使用 Yo 來建立 Hubot，但你若以 <span class="a-hl-blue">Root</span> 使用者執行指令的話會遇到很多權限上的問題。所以建議使用其他的身份來執行 Yo，你也可以為了 Hubot 新增一個系統使用者，新增使用者指令如下：</p>
+<pre><code class="bash"># 新增名為 hubot-user 的使用者
+useradd -d /hubot-user -m -s /bin/bash -U hubot-user
+</code></pre>
+<p>切換至新的使用者後，開始建立 Hubot：</p>
+<pre><code class="bash"># 新增一個資料夾給 Hubot
+mkdir hellohubot
+
+# 切換至該資料夾
+cd hellohubot
+
+# 建立 Hubot 並指定 Slack 為要使用的服務
+yo --no-insight hubot \
+   --owner="your-name" \
+   --name="bot-name" \
+   --description="Put some content here" \
+   --adapter=slack
+</code></pre>
+<p>當初始化完成後，你可以透過以下指令啟動 Hubot：</p>
+<pre><code class="bash">bin/hubot --adapter slack</code></pre>
+<p>目前你的 Hubot 還不能為我們提供任何自訂的服務，因為他缺少了核心元件：Scripts。我將在下一篇文章中示範如何替 Hubot 新增自訂的腳本。
+<br />
+<br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

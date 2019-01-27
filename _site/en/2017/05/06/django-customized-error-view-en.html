@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to customize error 404 view for Django applications" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Django - Customized error 404 view for your applications | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Django - Customized error 404 view for your applications</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>May 6, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Djnago
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2017/05/06/django-customized-error-view-zh.html">中文版</a>
+</p>
+<p>In <a class="a-hl-blue" href="/en/2017/04/29/django-configure-logging-settings-en.html" target="_blank">the first post</a>, I already showed you how to configure logging settings. Let’s continue to explore other features provided by Django. In this article, I’m going to show you how to customize error 404 view for your applications.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="prerequisite">Prerequisite</h3>
+<p>If you have not created a proper environment for the following steps, you can use below commands:</p>
+<pre><code class="bash"># Install Django
+python -m pip install Django
+
+# Check Django's version
+python -m django --version
+
+# Create a new Django project
+django-admin startproject &lt;project-name&gt;
+</code></pre>
+<p>The structure of your project should look like this:</p>
+<pre><code class="python">project-name/
+├── project-name
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+</code></pre>
+<p><br /></p>
+
+<h3 id="create-views-for-errors">Create views for errors</h3>
+<p>Django already provides us a default mechanism and pages for handling error 404 or 50X. So, we don’t need to build things from scratch. First, create customized views in <span class="a-hl-green">view.py</span> like this:</p>
+<pre><code class="python"># View for error 404
+class Error404View(View):
+    def get(self, request):
+        # Do something if you want
+        return render(request, 'path/to/error404.html')
+
+# View for error 500
+class Error500View(View):
+    def get(self, request):
+        # Do something if you want
+        return render(request, 'path/to/error500.html')
+</code></pre>
+<p>In the example, I created two class-based views and specified HTML files for rendering.
+<br />
+<br /></p>
+
+<h3 id="set-url-configuration">Set URL configuration</h3>
+<p>At this point, Django doesn’t know when to use views that you just created. You need to let it know which views you want to use for error 404 or 50X, so put below settings in <span class="a-hl-green">urls.py</span>:</p>
+<pre><code class="python">from django.conf.urls import handler404, handler500
+
+# Import customized views
+from your-app.views import Error404View, Error500View
+
+urlpatterns = [
+    ...
+]
+
+handler404 = Error404View.as_view()
+handler500 = Error500View.as_view()
+</code></pre>
+<p>If you have multiple apps, you need to add those settings into your main url.py.
+<br />
+<br /></p>
+
+<h3 id="test">Test</h3>
+<p>To see the customized error pages, you have to disable debug mode. So, open your configuration <span class="a-hl-green">settings.py</span>, and disable it:</p>
+<pre><code class="python">DEBUG = False</code></pre>
+<p>Now, the system will automatically display your customized pages when errors occur.
+<br />
+<br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to install Syntastic for Vim on Mac." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Syntastic for Vim on Mac | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Install Syntastic for Vim on Mac</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Nov 18, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Vim
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2016/11/18/install-syntastic-on-mac-zh.html">中文版</a>
+</p>
+<p>If you love Vim and want to use it like a modern IDE, you shouldn’t omit <span class="a-hl-blue">Syntastic</span>, a powerful syntax checker. Not only it provides syntax checking for various of programming languages, but allows you to check coding style by integrating it with other tools (like flake8 for PEP 8). So, this post is about how to install and use it.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="prerequisite">Prerequisite</h3>
+<p>To install plugins for Vim, I usually use <span class="a-hl-blue">Vundle</span>, an easy-to-use plugin manager. And I will use it in this tutorial, so you can start to use it today.
+<br /><br /></p>
+
+<h3 id="install-syntastic">Install Syntastic</h3>
+<p>Let’s install Syntastic through Vundle. First, open your Vim configuration (<span class="a-hl-green">/etc/vimrc</span> or <span class="a-hl-green">~/.vimrc</span>), and then add the plugin name and related settings into it. For example:</p>
+<pre><code class="bash">" skip some content ... "
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+" Add Syntastic plugin here "
+Plugin 'scrooloose/syntastic'
+
+call vundle#end()
+filetype plugin indent on
+
+" skip some content ... "
+
+" Drop Syntastic settings at the end of the config file "
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+</code></pre>
+<p>You can specify your favorite checkers by adding this:</p>
+<pre><code class="bash">" Use specific checkers, and don't forget to install them "
+let g:syntastic_&lt;filetype&gt;_checkers = ['&lt;checker-name&gt;']
+
+" For example: replace the default Python checker with flake8 and pylint "
+let g:syntastic_python_checkers = ['flake8', 'pylint']
+</code></pre>
+<p>What’s more, you can change the error symbol and the warning symbol:</p>
+<pre><code class="bash">let g:syntastic_error_symbol = 'Put a symbol or an emoji you like'
+let g:syntastic_warning_symbol = 'Put a symbol or an emoji you like'
+</code></pre>
+<p>After modification to Vim config, install it by executing the command in Vim:</p>
+<pre><code class="bash">:PluginInstall</code></pre>
+<p>Or, drop the command in your terminal:</p>
+<pre><code class="bash">vim +PluginInstall +qall</code></pre>
+<p><br /></p>
+
+<h3 id="use-syntastic">Use Syntastic</h3>
+<p>Actually, there is nothing else you should do. Every time you modify a file and save it, Syntastic will automatically create a window and show related information for you. If you want more detailed information, just execute the command:</p>
+<pre><code class="bash">:help syntastic</code></pre>
+<p><br /><br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

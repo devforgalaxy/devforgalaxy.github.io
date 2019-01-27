@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="This post is about how to install and use NERDTree Tabs." />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install NERDTree Tabs | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">About</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Install NERDTree Tabs</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Aug 27, 2016
+    <i class="fa fa-tag ml15 mr7"></i>Vim
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/zh/2016/08/27/install-nerdtree-tabs-zh.html">中文版</a>
+</p>
+<p>As we know, <span class="a-hl-blue">Vim</span> is a powerful text editor. However, there is still a lot of room for improvement. I’m going to introduce <span class="a-hl-blue">NERDTree Tabs</span> that can make Vim like a modern IDE, and this post is about how to install and use it.</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="prerequisite">Prerequisite</h3>
+<p>To install plugins for Vim, I usually use <span class="a-hl-blue">Vundle</span>, an easy-to-use plugin manager. And I will use it in this tutorial, so you can try to use it. What’s more, NERDTree Tabs is based on NERDTree. Thus, you should install NERDTree before below steps.
+<br /><br /></p>
+
+<h3 id="install-nerdtree-tabs">Install NERDTree Tabs</h3>
+<p>Let’s install NERDTree Tabs via Vundle. First, open your Vim configuration (<span class="a-hl-green">/etc/vimrc</span> or <span class="a-hl-green">~/.vimrc</span>), then add the plugin name and related settings. For example:</p>
+<pre><code class="bash">" skip some content ... "
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+
+" Add NERDTree Tabs plugin here "
+Plugin 'jistr/vim-nerdtree-tabs'
+
+call vundle#end()
+filetype plugin indent on
+
+" skip some content ... "
+
+" Drop NERDTree Tabs settings at the end of the config file "
+" Open file via NERDTree Tabs, hot key: \t "
+nmap &lt;silent&gt; &lt;leader&gt;t :NERDTreeTabsToggle&lt;CR&gt;
+
+" Start NERDTree Tabs automatically "
+let g:nerdtree_tabs_open_on_console_startup = 1
+
+</code></pre>
+<p>After modification to Vim config, let’s install by executing the command in Vim:</p>
+<pre><code class="bash">:PluginInstall</code></pre>
+<p>Or, drop the command in your terminal:</p>
+<pre><code class="bash">vim +PluginInstall +qall</code></pre>
+<p><br /></p>
+
+<h3 id="use-nerdtree-tabs">Use NERDTree Tabs</h3>
+<p>Here are useful hot keys when you editing in Vim:</p>
+<pre><code class="bash">t   # Open file in a new tab
+gt  # Switch to the next tab
+gT  # Switch to the previous tab
+:q  # Close current tab
+Ctrl + ww  # Switch to different blocks
+</code></pre>
+<p><br /><br /></p>
+
+<p><br /></p>
+<h3>You might also like:</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-en.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">
+If you have any suggestions, questions or even find some typos, feel free to contact me. Thank you! :)
+</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

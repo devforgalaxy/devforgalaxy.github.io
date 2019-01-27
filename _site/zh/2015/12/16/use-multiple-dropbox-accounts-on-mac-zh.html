@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何在 Mac 上同時登入多個 Dropbox 帳號，而且不需要升級你的 Dropbox 帳號。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>於 Mac 上同時登入多個 Dropbox 帳號 | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">於 Mac 上同時登入多個 Dropbox 帳號</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Dec 16, 2015
+    <i class="fa fa-tag ml15 mr7"></i>Mac
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2015/12/16/use-multiple-dropbox-accounts-on-mac-en.html">English</a>
+</p>
+<p>Dropbox 本身不希望使用者在同一台裝置上同時登入多個帳號，除非購買升級方案才能同時登入多個帳號。但在網路上的確找得到其他的方式來突破這個限制，本篇將如何同時在 Mac 上使用多個 Dropxbox 帳號的方式記錄下來。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="dropbox-">Dropbox 檔案同步機制</h3>
+<p>在實際動手前，先暸解 Dropbox 的同步機制。Dropbox 的程式會在特定的路徑中搜尋名為 Dropbox 的資料夾中進行同步，也因此在第一次安裝時它會要求你指定路徑並為你建立該資料夾。所以，當你將 Dropbox 資料夾名稱修改後，同步程式會通知你同步失敗請重新指定一個新的路徑，並重複上述的動作。
+<br /><br /></p>
+
+<h3 id="automator--dropbox-">使用 Automator 來執行 Dropbox 同步程式</h3>
+<p>接下來的操作與原來你已經設定、安裝好的 Dropbox 帳號、路徑無關，也不會產生干擾。首先，我們要透過 Mac 內建的 <span class="a-hl-blue">Automator</span> 來執行 Dropbox 同步程式。打開 Automator，選擇<span class="a-hl-red">應用程式</span>，如下圖：<br />
+<img width="100%" class="a-img" src="https://1.bp.blogspot.com/-NCSykSFgfbs/Vm_NWYRIPmI/AAAAAAAACCI/lF_vqbzywGU/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.18.45.png" />
+在左邊點選<span class="a-hl-red">工具程式</span> &gt; <span class="a-hl-red">執行 Shell 工序指令</span>，只要將該項目直接拖曳至右邊的工作區塊即可，如下圖：
+<img width="100%" class="a-img" src="https://4.bp.blogspot.com/-VrXnRCxCkCM/Vm_OIuWRITI/AAAAAAAACCQ/PAqH5PoFXvM/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.21.51.png" />
+最後將啟動 Dropbox 同步程式的指令加入：</p>
+<pre><code class="bash">bash
+HOME=$HOME/YourPath /Applications/Dropbox.app/Contents/MacOS/Dropbox &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+<p>將 YourPath 改成指定的路徑，不要與原本的 Dropbox 資料夾路徑相同即可。若路徑相同，新建立的 Dropbox 資料夾會覆蓋掉舊的，YourPath 後面記得補上一個空白。完成後，應該與下圖相同：
+<img width="100%" class="a-img" src="https://3.bp.blogspot.com/-50-hcGF09rQ/Vm_RP7ynqPI/AAAAAAAACCc/U9HXVQGQyws/s1600/%25E8%259E%25A2%25E5%25B9%2595%25E5%25BF%25AB%25E7%2585%25A7%2B2015-12-15%2B%25E4%25B8%258B%25E5%258D%25884.35.15.png" />
+最後只需要將這個應用程式取名並儲存即可。儲存後，進入應用程式資料夾裡面，可以發現剛剛儲存的應用程式 ( <span class="a-hl-blue">.app</span> )。點擊後等待一下，就可以看到上方工具列出現 Dropbox 程式 Icon，接著填入你的帳號來連結就可以了。之後要同步該帳號資料，點擊此應用程式即可。
+<br /><br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>

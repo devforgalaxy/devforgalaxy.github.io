@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="本篇文章將介紹如何使用 WhiteNoise 處理 Django 靜態文件。" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Django - 使用 WhiteNoise 處理靜態文件 | Devforgalaxy</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/solarized-dark.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9161307949139214",
+    enable_page_level_ads: true
+  });
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<!-- Header -->
+<div class="row h-wrapper">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><a class="h-circle-blue pull-left mt17 mr10"></a>
+<a class="h-logo pull-left mt10 mb10" href="/">Devforgalaxy</a>
+<a class="pull-right mt14" href="/about">關於</a>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Content -->
+<div class="row mt30">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><div class="a-block mt10 mb10 ml15 mr15">
+<h1 class="a-title">Django - 使用 WhiteNoise 處理靜態文件</h1>
+<p class="a-info mt20 mb20">
+    <i class="fa fa-clock-o mr7"></i>Aug 3, 2017
+    <i class="fa fa-tag ml15 mr7"></i>Djnago
+    <a class="btn btn-info a-btn-ver pull-right" 
+        href="/en/2017/08/03/using-whitenoise-with-django-en.html">English</a>
+</p>
+<p>在這篇文章，我將介紹如何使用 <span class="a-hl-blue">WhiteNoise</span> 處理靜態文件。你或許會有疑問，為什麼我們需要額外的軟體來處理靜態文件？原因是在開發環境下 Django 會提供一個預設的機制來處理靜態資源的請求，但是在正式環境下 Django 團隊強烈建議使用其他的方式來處理，例如：使用 Nginx、Apache 和 AWS S3。因此，當你的 Django 應用是一個 MVP 或是流量較低的網站，WhiteNoise 就成為一個簡單的解決方案。</p>
+
+<p><br />
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9161307949139214" data-ad-slot="1131030106"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<p><br /></p>
+
+<h3 id="section">前置準備</h3>
+<p>若你還未將環境設定好，你可以使用以下指令快速建立專案：</p>
+<pre><code class="bash"># 安裝 Django
+python -m pip install Django
+
+# 查看 Django 版本
+python -m django --version
+
+# 建立 Django 專案
+django-admin startproject &lt;project-name&gt;
+</code></pre>
+<p>專案的預設結構如下：</p>
+<pre><code class="python">project-name/
+├── project-name
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+</code></pre>
+<p><br /></p>
+
+<h3 id="whitenoise">安裝 WhiteNoise</h3>
+<p>使用 <span class="a-hl-red">pip</span> 安裝 WhiteNoise 會是最簡單的方式：</p>
+<pre><code class="bash">python -m pip install whitenoise</code></pre>
+<p><br /></p>
+
+<h3 id="whitenoise-1">設定 WhiteNoise</h3>
+<p>基本上，我們不需要在這步驟做太多事情，我們只需要將以下的設定加入至 <span class="a-hl-green">settings.py</span> 即可：</p>
+<pre><code class="python"># 將 WhiteNoise 加入 middlewares
+MIDDLEWARE = [
+    ...
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+
+# 設定靜態文件所在位置
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+</code></pre>
+<p>當然，你可以在<a class="a-hl-blue" target="_blank" href="http://whitenoise.evans.io/en/stable/django.html#available-settings">文件</a>中找到更多參數。
+<br />
+<br /></p>
+
+<h3 id="section-1">複製靜態資源</h3>
+<p>既然我們已經在設定檔中指定靜態資源的位置，因此我們需要複製各個應用的靜態資源並放到該處。幸運地，Django 已經提供了簡單的指令：</p>
+<pre><code class="bash">python manage.py collectstatic --noinput</code></pre>
+<p>當以上步驟都完成後，將 Django 啟動後 WhiteNoise 就會自動開始接手處理靜態資源的請求。別忘了，當 Debug 模式開啟後 Django 的預設處理機制會自動接手處理。
+<br />
+<br /></p>
+
+<p><br /></p>
+<h3>你也可能會喜歡：</h3>
+<ul id="more-posts"></ul>
+
+<p><br /></p>
+
+<hr />
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+  fetch('/posts-zh.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      var element = $('#more-posts');
+      var contents = '';
+      for (var count = 0; count < 8; ++count) {
+          var index = Math.floor(Math.random() * json.length);
+          var post = json[index];
+          link = "<li><a class='a-hl-blue' href='" + post.href + "'>" + post.title + "</a></li>";
+          contents = contents + link;
+          json.splice(index, 1);
+      }
+      element.html(contents);
+    }).catch(function(error) {
+      console.error(error);
+    });
+});
+</script>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+<!-- Footer -->
+<div class="row">
+<div class="hidden-xs col-sm-2"></div>
+<div class="col-sm-8"><br/>
+<div class="a-block mt5 mb30 ml15 mr15 text-center">
+<p class="a-contact">若對於文章內容有任何建議與指正，非常歡迎你告訴我或者與我一起討論 ! :)</p>
+<p class="a-contact">
+<i class="fa fa-envelope-o mr5"></i>zeckli.devforgalaxy@gmail.com&nbsp;&nbsp;
+&copy;&nbsp;2015-2017 zeckli, thanks to <u>Jekyll</u> and <u>GitHub</u>.
+</p>
+</div>
+</div>
+<div class="hidden-xs col-sm-2"></div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44444174-6', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
